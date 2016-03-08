@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed = 100;
     private Rigidbody2D rigi;
-    public bool isFacingRight = false;
+    public bool isFacingRight = true;
 
     void Start()
 	{
