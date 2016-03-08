@@ -4,11 +4,18 @@ using UnityEngine.SocialPlatforms;
 
 public class EnemyController : MonoBehaviour {
 
-    public float speed = 50;
+    //------------Stats--------------
+	public float speed = 50;
     public float rangeAttack = 50;
+	public float health = 100;
+	public float level = 1;
+	//-------------------------------
+
+	public SpriteRenderer sprite;
+	public GameObject player;
+	public bool isFacingRight = true;
+
     private Rigidbody2D rigi;
-    public GameObject player;
-    public bool isFacingRight = true;
 
     void Start()
     {
@@ -40,6 +47,23 @@ public class EnemyController : MonoBehaviour {
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
+	public void GetDamage(int damage)
+	{
+		health -= damage;
+		StartCoroutine(ShowDamage());
+	}
+
+	IEnumerator ShowDamage()
+	{
+		for (int i = 0; i < 5; i ++)
+		{
+			yield return new WaitForSeconds(0.05f);	
+			sprite.color = new Color(1, 0.5f, 0.5f, 1);
+			yield return new WaitForSeconds(0.05f);	
+			sprite.color = new Color(1, 1, 1, 1);
+		}
+	}
 
     void OnTriggerEnter2D(Collider2D other)
     {

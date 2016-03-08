@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class PlayerController : MonoBehaviour {
-
+public class PlayerController : MonoBehaviour 
+{
+	//----------STATS---------
+	private float health = 100;
+	private List<Skill> skills;
 	public float speed = 100;
-    private Rigidbody2D rigi;
-    public bool isFacingRight = true;
+    //-------------------------
+
+	//public Skill curtainSkill, hammerSkill, guitarSkill;
+	public bool isFacingRight = true;
+	private Rigidbody2D rigi;
+	private EnemyController[] enemies;
+	private MainController mainController;
 
     void Start()
 	{
         rigi = GetComponent<Rigidbody2D> ();
+		mainController = GameObject.FindObjectOfType<MainController>();
 	}
 
 	void FixedUpdate()
@@ -32,7 +42,39 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = theScale;
     }
 
-    void OnTriggerEnter2D(Collider2D other) 
+	private void RefreshSkills()
 	{
+		skills = new List<Skill>();
+		foreach (var sk in mainController._base.skills)
+			skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));
+	}
+	private void UseHammer()
+	{
+		//play hammer animation
+		EnemyController enemy = mainController.FindNearEnemy();
+		if (enemy != null)
+			enemy.GetDamage((int)GetSkill(SkillType.Hummer).power);
+		//minus hammer energy
+	}
+
+	private Skill GetSkill(SkillType skillType)
+	{
+		foreach (var sk in skills)
+			if (sk.skillType == skillType)
+				return sk;
+		return new Skill();
+	}
+}
+
+[System.Serializable]
+public class Skill
+{
+	public SkillType skillType;
+	public float power;
+	public Skill(){}
+	public Skill(SkillType _skillType, float _power)
+	{
+		skillType = _skillType;
+		power = _power;
 	}
 }
