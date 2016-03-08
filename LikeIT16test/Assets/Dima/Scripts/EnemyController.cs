@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
         float dX = player.transform.position.x - transform.position.x;
         float dY = player.transform.position.y - transform.position.y;
         float d = Mathf.Sqrt(Mathf.Pow(dX, 2) + Mathf.Pow(dY, 2));
-        if (d < rangeAttack && d > 1)
+        if (d < rangeAttack && d > 2)
         {
             rigi.AddForce(new Vector2(
                 Mathf.Sign(dX)* speed* (1-Mathf.Abs(dX)/ rangeAttack), 
