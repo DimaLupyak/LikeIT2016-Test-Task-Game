@@ -16,10 +16,11 @@ public class EnemyController : MonoBehaviour {
 	public bool isFacingRight = true;
 
     private Rigidbody2D rigi;
-
+    private Animator animator;
     void Start()
     {
         rigi = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -30,10 +31,13 @@ public class EnemyController : MonoBehaviour {
         if (d < rangeAttack && d > 2)
         {
             rigi.AddForce(new Vector2(
-                Mathf.Sign(dX)* speed* (1-Mathf.Abs(dX)/ rangeAttack), 
+                Mathf.Sign(dX)* speed, 
                 Mathf.Sign(dY) * speed/2 * (1-Mathf.Abs(dY) / rangeAttack)));
         }
         if (rigi.velocity.x != 0 || rigi.velocity.y != 0) rigi.AddForce(new Vector2(-rigi.velocity.x * 10, -rigi.velocity.y * 10));
+
+        animator.SetFloat("hSpeed", Mathf.Abs(rigi.velocity.x));
+
         if (rigi.velocity.x > 0 && !isFacingRight)
             Flip();
         else if (rigi.velocity.x < 0 && isFacingRight)

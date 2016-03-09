@@ -15,19 +15,24 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody2D rigi;
 	private EnemyController[] enemies;
 	private MainController mainController;
+    private Animator animator;
 
     void Start()
 	{
         rigi = GetComponent<Rigidbody2D> ();
 		mainController = GameObject.FindObjectOfType<MainController>();
-	}
+        animator = GetComponent<Animator>();
+    }
 
 	void FixedUpdate()
 	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+		float moveHorizontal = Input.GetAxis ("Horizontal");        
 		float moveVertical = Input.GetAxis ("Vertical");
         rigi.AddForce(new Vector2(moveHorizontal * speed, moveVertical * speed));
         if(rigi.velocity.x!=0|| rigi.velocity.y != 0) rigi.AddForce(new Vector2(-rigi.velocity.x*10, -rigi.velocity.y*10));
+
+        animator.SetFloat("hSpeed", Mathf.Abs(rigi.velocity.x));
+
         if (moveHorizontal > 0 && !isFacingRight)
             Flip();
         else if (moveHorizontal < 0 && isFacingRight)
