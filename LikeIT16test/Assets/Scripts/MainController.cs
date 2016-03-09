@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour 
 {
@@ -8,21 +9,27 @@ public class MainController : MonoBehaviour
 	private PlayerController player;
 	private int direction;
 
+	const float damageRadius = 2f;
+
 	public Base _base;
 	public GameObject enemyPrefab;
+	public Transform upBoundTransform;
+	public Transform downBoundTransform;
 
-	const float damageRadius = 2f;
-	const float upBound = -1.5f;
-	const float downBound = -5f;
+	[HideInInspector]
+	public float upBound, downBound;
+
+	void Awake()
+	{
+		if (SaveManager.Instance == null)
+			SceneManager.LoadScene(0);
+	}
 	void Start()
 	{
 		player = GameObject.FindObjectOfType<PlayerController>();
 		enemies = new List<EnemyController>();
-	}
-
-	void LoadSkills()
-	{
-		
+		upBound = upBoundTransform.position.y;
+		downBound = downBoundTransform.position.y;
 	}
 
 	public EnemyController FindNearEnemy()
@@ -46,7 +53,7 @@ public class MainController : MonoBehaviour
 
 	void CreateNewEnemy()
 	{
-		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound, upBound), -0.1f); 
+		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
 		GameObject tmpEnemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity) as GameObject;
 		enemies.Add(tmpEnemy.GetComponent<EnemyController>());
 	}

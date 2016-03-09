@@ -10,49 +10,31 @@ public class PlayerController : MonoBehaviour
 	public float speed = 100;
     //-------------------------
 
-	//public Skill curtainSkill, hammerSkill, guitarSkill;
-	public bool isFacingRight = true;
-	private Rigidbody2D rigi;
 	private EnemyController[] enemies;
 	private MainController mainController;
     private Animator animator;
 
     void Start()
 	{
-        rigi = GetComponent<Rigidbody2D> ();
 		mainController = GameObject.FindObjectOfType<MainController>();
         animator = GetComponent<Animator>();
+		//RefreshSkills();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-        rigi.AddForce(new Vector2(moveHorizontal * speed, moveVertical * speed));
-        if (rigi.velocity.x != 0 || rigi.velocity.y != 0) rigi.AddForce(new Vector2(-rigi.velocity.x * 10, -rigi.velocity.y * 10));
 
-        animator.SetFloat("hSpeed", Mathf.Abs(rigi.velocity.x));
-
-        if (moveHorizontal > 0 && !isFacingRight)
-            Flip();
-        else if (moveHorizontal < 0 && isFacingRight)
-            Flip();
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            animator.SetBool("GuitarPlaying", true);            
-        }
-        else
-        {
-            animator.SetBool("GuitarPlaying", false);
-        }
-    }
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+		if (!(transform.position.y + moveVertical * speed < mainController.upBound && transform.position.y + moveVertical * speed > mainController.downBound))
+			moveVertical = 0;
+		transform.Translate(moveHorizontal * speed, moveVertical * speed, 0);
+		animator.SetFloat("hSpeed", moveHorizontal  + moveVertical == 0 ? 0  : 1);
+		Vector3 theScale = transform.localScale;
+		theScale.x = moveHorizontal > 0 ? Mathf.Abs(this.transform.localScale.x) * -1 : moveHorizontal < 0 ? Mathf.Abs(this.transform.localScale.x) * 1 : theScale.x;
+		transform.localScale = theScale;
+		if (Input.GetButtonDown("Jump"))
+			UseGuitar();
     }
 
 	private void RefreshSkills()
@@ -60,6 +42,10 @@ public class PlayerController : MonoBehaviour
 		skills = new List<Skill>();
 		foreach (var sk in mainController._base.skills)
 			skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));
+	}
+	private void UseGuitar()
+	{
+		animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
 	}
 	private void UseHammer()
 	{

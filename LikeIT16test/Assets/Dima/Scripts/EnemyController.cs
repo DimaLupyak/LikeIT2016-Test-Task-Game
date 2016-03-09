@@ -2,11 +2,12 @@
 using System.Collections;
 using UnityEngine.SocialPlatforms;
 
-public class EnemyController : MonoBehaviour {
+public class EnemyController : MonoBehaviour 
+{
 
     //------------Stats--------------
 	public float speed = 50;
-    public float rangeAttack = 50;
+    public float attackRange = 50;
 	public float health = 100;
 	public float level = 1;
 	//-------------------------------
@@ -15,33 +16,27 @@ public class EnemyController : MonoBehaviour {
 	public GameObject player;
 	public bool isFacingRight = true;
 
-    private Rigidbody2D rigi;
     private Animator animator;
+
     void Start()
     {
-        rigi = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+		player = GameObject.FindObjectOfType<PlayerController>().gameObject;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        float dX = player.transform.position.x - transform.position.x;
-        float dY = player.transform.position.y - transform.position.y;
-        float d = Mathf.Sqrt(Mathf.Pow(dX, 2) + Mathf.Pow(dY, 2));
-        if (d < rangeAttack && d > 2)
-        {
-            rigi.AddForce(new Vector2(
-                Mathf.Sign(dX)* speed, 
-                Mathf.Sign(dY) * speed/2 * (1-Mathf.Abs(dY) / rangeAttack)));
-        }
-        if (rigi.velocity.x != 0 || rigi.velocity.y != 0) rigi.AddForce(new Vector2(-rigi.velocity.x * 10, -rigi.velocity.y * 10));
+		float distance = Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
+		if (distance < attackRange && distance > 2)
+		{
+			transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
+			animator.SetFloat("hSpeed", 1);
+		}
+		else animator.SetFloat("hSpeed", 0);
 
-        animator.SetFloat("hSpeed", Mathf.Abs(rigi.velocity.x));
-
-        if (rigi.velocity.x > 0 && !isFacingRight)
-            Flip();
-        else if (rigi.velocity.x < 0 && isFacingRight)
-            Flip();
+		Vector3 theScale = transform.localScale;
+		theScale.x = player.transform.position.x > this.transform.position.x ? Mathf.Abs(this.transform.localScale.x) * -1 : Mathf.Abs(this.transform.localScale.x) * 1;
+		transform.localScale = theScale;
     }
 
     private void Flip()
@@ -68,8 +63,4 @@ public class EnemyController : MonoBehaviour {
 			sprite.color = new Color(1, 1, 1, 1);
 		}
 	}
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-    }
 }
