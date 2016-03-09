@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
 	private void RefreshSkills()
 	{
 		skills = new List<Skill>();
-		foreach (var sk in mainController._base.skills)
-			skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));
+		/*foreach (var sk in mainController._base.skills)
+			skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));*/
 	}
 	private void UseGuitar()
 	{
