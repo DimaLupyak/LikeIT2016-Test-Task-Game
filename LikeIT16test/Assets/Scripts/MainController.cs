@@ -9,9 +9,11 @@ public class MainController : MonoBehaviour
 	private int direction;
 
 	public Base _base;
+	public GameObject enemyPrefab;
 
 	const float damageRadius = 2f;
-
+	const float upBound = -1.5f;
+	const float downBound = -5f;
 	void Start()
 	{
 		player = GameObject.FindObjectOfType<PlayerController>();
@@ -44,6 +46,14 @@ public class MainController : MonoBehaviour
 
 	void CreateNewEnemy()
 	{
-		
+		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound, upBound), -0.1f); 
+		GameObject tmpEnemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity) as GameObject;
+		enemies.Add(tmpEnemy.GetComponent<EnemyController>());
+	}
+
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.K))
+			CreateNewEnemy();
 	}
 }

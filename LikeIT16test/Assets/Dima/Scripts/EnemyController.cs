@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
     void Start()
     {
         rigi = GetComponent<Rigidbody2D>();
+		player = GameObject.FindObjectOfType<PlayerController>().gameObject;
     }
 
     void FixedUpdate()
