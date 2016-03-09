@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 		player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+		speed += Random.Range(0, 200) / 10000f;
     }
 
     void Update()
