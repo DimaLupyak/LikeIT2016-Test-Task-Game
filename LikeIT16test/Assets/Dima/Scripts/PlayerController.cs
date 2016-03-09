@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 	{
 		mainController = GameObject.FindObjectOfType<MainController>();
         animator = GetComponent<Animator>();
-		//RefreshSkills();
+		RefreshSkills();
     }
 
     void Update()
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 		transform.localScale = theScale;
 		if (Input.GetButtonDown("Jump"))
 			UseGuitar();
+		if (Input.GetKeyDown(KeyCode.H))
+			UseHammer();
     }
 
 	private void RefreshSkills()
@@ -46,13 +48,15 @@ public class PlayerController : MonoBehaviour
 	private void UseGuitar()
 	{
 		animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
+		foreach (var enemy in mainController.enemies)
+			enemy.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
 	}
 	private void UseHammer()
 	{
 		//play hammer animation
 		EnemyController enemy = mainController.FindNearEnemy();
 		if (enemy != null)
-			enemy.GetDamage((int)GetSkill(SkillType.Hummer).power);
+			enemy.GetHammerDamage((int)GetSkill(SkillType.Hummer).power);
 		//minus hammer energy
 	}
 

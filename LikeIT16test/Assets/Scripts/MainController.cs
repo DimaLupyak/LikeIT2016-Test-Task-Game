@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour 
 {
-	private List<EnemyController> enemies;
 	private PlayerController player;
 	private int direction;
 
@@ -16,6 +15,8 @@ public class MainController : MonoBehaviour
 	public Transform upBoundTransform;
 	public Transform downBoundTransform;
 
+	[HideInInspector]
+	public List<EnemyController> enemies;
 	[HideInInspector]
 	public float upBound, downBound;
 
