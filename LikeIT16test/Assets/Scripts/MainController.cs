@@ -22,8 +22,8 @@ public class MainController : MonoBehaviour
 
 	void Awake()
 	{
-		if (SaveManager.Instance == null)
-			SceneManager.LoadScene(0);
+		//if (SaveManager.Instance == null)
+		//	SceneManager.LoadScene(0);
 	}
 	void Start()
 	{
