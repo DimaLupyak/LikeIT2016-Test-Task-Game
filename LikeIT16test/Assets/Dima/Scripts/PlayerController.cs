@@ -24,12 +24,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-	void FixedUpdate()
-	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");        
-		float moveVertical = Input.GetAxis ("Vertical");
+    void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
         rigi.AddForce(new Vector2(moveHorizontal * speed, moveVertical * speed));
-        if(rigi.velocity.x!=0|| rigi.velocity.y != 0) rigi.AddForce(new Vector2(-rigi.velocity.x*10, -rigi.velocity.y*10));
+        if (rigi.velocity.x != 0 || rigi.velocity.y != 0) rigi.AddForce(new Vector2(-rigi.velocity.x * 10, -rigi.velocity.y * 10));
 
         animator.SetFloat("hSpeed", Mathf.Abs(rigi.velocity.x));
 
@@ -37,8 +37,16 @@ public class PlayerController : MonoBehaviour
             Flip();
         else if (moveHorizontal < 0 && isFacingRight)
             Flip();
-    }
 
+        if (Input.GetButtonDown("Jump"))
+        {
+            animator.SetBool("GuitarPlaying", true);            
+        }
+        else
+        {
+            animator.SetBool("GuitarPlaying", false);
+        }
+    }
     private void Flip()
     {
         isFacingRight = !isFacingRight;

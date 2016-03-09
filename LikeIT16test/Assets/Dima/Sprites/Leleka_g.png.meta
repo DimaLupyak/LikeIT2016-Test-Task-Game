@@ -1,0 +1,228 @@
+fileFormatVersion: 2
+guid: 4e1f806cf15fc614ead5e9b6aa17c6be
+timeCreated: 1457493467
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Leleka_g_0
+    21300002: Leleka_g_1
+    21300004: Leleka_g_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Leleka_g_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 306
+        width: 538
+        height: 465
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 255, y: -205.5}
+        - {x: 269, y: -201.5}
+        - {x: 269, y: -174.5}
+        - {x: 208, y: -97.5}
+        - {x: 215, y: -69.5}
+        - {x: 209, y: -40.5}
+        - {x: 170, y: 37.5}
+        - {x: 166, y: 78.5}
+        - {x: 137, y: 102.5}
+        - {x: 85, y: 117.5}
+        - {x: 54, y: 97.5}
+        - {x: 33, y: 39.5}
+        - {x: -6, y: 8.5}
+        - {x: -31, y: 26.5}
+        - {x: 21, y: 145.5}
+        - {x: 31, y: 186.5}
+        - {x: 25, y: 202.5}
+        - {x: -14, y: 224.5}
+        - {x: -44, y: 232.5}
+        - {x: -78, y: 232.5}
+        - {x: -104, y: 219.5}
+        - {x: -139, y: 166.5}
+        - {x: -171, y: 77.5}
+        - {x: -203, y: 40.5}
+        - {x: -200, y: 21.5}
+        - {x: -123, y: 54.5}
+        - {x: -41, y: 99.5}
+        - {x: -62, y: 43.5}
+        - {x: -97, y: -1.5}
+        - {x: -208, y: 2.5}
+        - {x: -246, y: 53.5}
+        - {x: -259, y: 60.5}
+        - {x: -269, y: 36.5}
+        - {x: -269, y: 10.5}
+        - {x: -211, y: -30.5}
+        - {x: -240, y: -37.5}
+        - {x: -257, y: -84.5}
+        - {x: -217, y: -135.5}
+        - {x: -134, y: -143.5}
+        - {x: -101, y: -163.5}
+        - {x: -56, y: -232.5}
+        - {x: 30, y: -232.5}
+        - {x: 56, y: -202.5}
+        - {x: 73, y: -177.5}
+        - {x: 166, y: -169.5}
+    - name: Leleka_g_1
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 306
+        width: 538
+        height: 458
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 269, y: -199}
+        - {x: 269, y: -171}
+        - {x: 208, y: -94}
+        - {x: 215, y: -66}
+        - {x: 209, y: -37}
+        - {x: 170, y: 41}
+        - {x: 166, y: 82}
+        - {x: 137, y: 106}
+        - {x: 85, y: 121}
+        - {x: 54, y: 101}
+        - {x: 33, y: 43}
+        - {x: -6, y: 12}
+        - {x: -31, y: 30}
+        - {x: 17, y: 133}
+        - {x: 14, y: 173}
+        - {x: 19, y: 216}
+        - {x: -20, y: 229}
+        - {x: -91, y: 229}
+        - {x: -122, y: 222}
+        - {x: -155, y: 154}
+        - {x: -112, y: 113}
+        - {x: -179, y: 48}
+        - {x: -199, y: 14}
+        - {x: -187, y: 9}
+        - {x: -170, y: 13}
+        - {x: -68, y: 27}
+        - {x: -85, y: 3}
+        - {x: -171, y: -15}
+        - {x: -208, y: 6}
+        - {x: -246, y: 57}
+        - {x: -259, y: 64}
+        - {x: -269, y: 40}
+        - {x: -269, y: 14}
+        - {x: -211, y: -27}
+        - {x: -240, y: -34}
+        - {x: -257, y: -81}
+        - {x: -217, y: -132}
+        - {x: -134, y: -140}
+        - {x: -95, y: -154}
+        - {x: -73, y: -203}
+        - {x: -47, y: -229}
+        - {x: 26, y: -229}
+        - {x: 93, y: -173}
+        - {x: 195, y: -175}
+        - {x: 255, y: -206}
+    - name: Leleka_g_2
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 306
+        width: 538
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 255, y: -209.5}
+        - {x: 269, y: -205.5}
+        - {x: 269, y: -178.5}
+        - {x: 208, y: -101.5}
+        - {x: 215, y: -73.5}
+        - {x: 209, y: -44.5}
+        - {x: 170, y: 33.5}
+        - {x: 166, y: 74.5}
+        - {x: 137, y: 98.5}
+        - {x: 85, y: 113.5}
+        - {x: 54, y: 93.5}
+        - {x: 33, y: 35.5}
+        - {x: -6, y: 4.5}
+        - {x: -31, y: 20.5}
+        - {x: 25, y: 113.5}
+        - {x: 53, y: 180.5}
+        - {x: 4, y: 227.5}
+        - {x: -18, y: 236.5}
+        - {x: -61, y: 236.5}
+        - {x: -93, y: 225.5}
+        - {x: -118, y: 174.5}
+        - {x: -101, y: 131.5}
+        - {x: -141, y: 111.5}
+        - {x: -180, y: 94.5}
+        - {x: -210, y: 72.5}
+        - {x: -206, y: 54.5}
+        - {x: -46, y: 84.5}
+        - {x: -85, y: -4.5}
+        - {x: -171, y: -22.5}
+        - {x: -246, y: 49.5}
+        - {x: -259, y: 56.5}
+        - {x: -269, y: 32.5}
+        - {x: -269, y: 6.5}
+        - {x: -211, y: -34.5}
+        - {x: -240, y: -41.5}
+        - {x: -257, y: -88.5}
+        - {x: -217, y: -139.5}
+        - {x: -134, y: -147.5}
+        - {x: -95, y: -161.5}
+        - {x: -73, y: -210.5}
+        - {x: -45, y: -236.5}
+        - {x: 22, y: -236.5}
+        - {x: 41, y: -227.5}
+        - {x: 98, y: -182.5}
+        - {x: 232, y: -198.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
