@@ -12,12 +12,12 @@ class PuzzlesManager
     private string[] fatherNames = { "Dima", "Slavic", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
 
-    private List<string> generatedHints;
+    public List<string> GeneratedHints { get; set; }
 
     public PuzzlesManager(int houseCount)
     {
         this.houseCount = houseCount;
-        generatedHints = new List<string>();
+        GeneratedHints = new List<string>();
         ShuffleArray(colours);
         ShuffleArray(pets);
         ShuffleArray(drinks);
@@ -36,7 +36,7 @@ class PuzzlesManager
 
     public string GetHint()
     {
-        if (generatedHints.Count == 6 * houseCount)
+        if (GeneratedHints.Count == 6 * houseCount)
         {
             return ("You already have the all hints");
         }
@@ -44,11 +44,11 @@ class PuzzlesManager
 
         newGeneration:
         newHint = GenerateHint();
-        foreach (string hint in generatedHints)
+        foreach (string hint in GeneratedHints)
         {
             if (hint == newHint) goto newGeneration;
         }
-        generatedHints.Add(newHint);
+        GeneratedHints.Add(newHint);
         return newHint;
     }
 
