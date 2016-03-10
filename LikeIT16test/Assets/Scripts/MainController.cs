@@ -35,7 +35,6 @@ public class MainController : MonoBehaviour
 		upBound = upBoundTransform.position.y;
 		downBound = downBoundTransform.position.y;
         puzzlesManager = new PuzzlesManager(3);
-        puzzlesManager.LogTable();
     }
 
 	public EnemyController FindNearEnemy()

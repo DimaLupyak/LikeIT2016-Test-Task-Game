@@ -6,7 +6,7 @@ class PuzzlesManager
 
     private int houseCount = 3;
     private string[] colours = { "White", "Blue", "Red", "Green", "Yellow", "Pink", "Grey", "Black" };
-    private string[] pets = { "Cat", "Dog", "Zebra", "Line", "Snake" };
+    private string[] pets = { "Cat", "Dog", "Zebra", "Lion", "Snake" };
     private string[] drinks = { "Water", "Beer", "Milk", "Juice", "Coffee" };
     private string[] fatherNames = { "Dima", "Slavic", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
@@ -31,7 +31,7 @@ class PuzzlesManager
         LogTable();
     }
 
-    public void LogTable()
+    private void LogTable()
     {
         for (int i = 0; i < houseCount; i++)
         {
