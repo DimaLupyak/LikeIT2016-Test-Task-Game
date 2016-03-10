@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 class PuzzlesManager
 {
@@ -11,9 +12,12 @@ class PuzzlesManager
     private string[] fatherNames = { "Dima", "Slavic", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
 
+    private List<string> generatedHints;
+
     public PuzzlesManager(int houseCount)
     {
         this.houseCount = houseCount;
+        generatedHints = new List<string>();
         ShuffleArray(colours);
         ShuffleArray(pets);
         ShuffleArray(drinks);
@@ -32,7 +36,26 @@ class PuzzlesManager
 
     public string GetHint()
     {
-        int hintType = Random.Range(0, 6);
+        if (generatedHints.Count == 5 * houseCount)
+        {
+            return ("You already have the all hints");
+        }
+        string newHint;
+
+        newGeneration:
+        newHint = GenerateHint();
+        foreach (string hint in generatedHints)
+        {
+            if (hint == newHint) goto newGeneration;
+        }
+        generatedHints.Add(newHint);
+        return newHint;
+    }
+
+
+    private string GenerateHint()
+    {
+        int hintType = Random.Range(0, 5);
         int houseNumber = Random.Range(0, houseCount);
         switch (hintType)
         {
