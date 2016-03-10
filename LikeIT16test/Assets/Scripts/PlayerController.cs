@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
 	}
 	private void UseGuitar()
 	{
+		//add guitar duration
 		animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
 		foreach (var enemy in mainController.enemies)
 			enemy.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
