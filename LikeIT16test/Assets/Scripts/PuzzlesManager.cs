@@ -36,7 +36,7 @@ class PuzzlesManager
 
     public string GetHint()
     {
-        if (generatedHints.Count == 5 * houseCount)
+        if (generatedHints.Count == 6 * houseCount)
         {
             return ("You already have the all hints");
         }
@@ -55,7 +55,7 @@ class PuzzlesManager
 
     private string GenerateHint()
     {
-        int hintType = Random.Range(0, 5);
+        int hintType = Random.Range(0, 6);
         int houseNumber = Random.Range(0, houseCount);
         switch (hintType)
         {
