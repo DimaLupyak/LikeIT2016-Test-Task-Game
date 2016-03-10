@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
 	private MainController mainController;
     private Animator animator;
 	private bool blockMove;
+    private float minDistance;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class EnemyController : MonoBehaviour
 		player = GameObject.FindObjectOfType<PlayerController>().gameObject;
 		mainController = GameObject.FindObjectOfType<MainController>();
 		speed += Random.Range(0, 200) / 10000f;
+        minDistance = 1 + Random.Range(0, 200) / 100f;
     }
 
     void Update()
@@ -38,7 +40,7 @@ public class EnemyController : MonoBehaviour
 			return;
 		}
 		float distance = Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
-		if (distance < attackRange && distance > 2)
+		if (distance < attackRange && distance > minDistance)
 		{
 			transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
 			animator.SetFloat("hSpeed", 1);
