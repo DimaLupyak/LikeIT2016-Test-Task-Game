@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class Button : MonoBehaviour 
 {
-	public enum ButtonAction {GoToScene, GoToLevel, UseSkill}
+	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy}
 	public ButtonAction buttonAction;
 	public bool changeSprite;
 	
@@ -48,6 +48,9 @@ public class Button : MonoBehaviour
 			break;
 		case ButtonAction.UseSkill:
 			MainController.Instance.UseSkill(skillType);
+			break;
+		case ButtonAction.CreateEnemy:
+			MainController.Instance.CreateNewEnemy();
 			break;
 		default:
 			Debug.LogWarning(buttonAction.ToString());
