@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 	public float speed = 100;
     //-------------------------
 
+	private Joystick joystick;
+
 	private EnemyController[] enemies;
 	private MainController mainController;
     private Animator animator;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
 	{
 		mainController = GameObject.FindObjectOfType<MainController>();
+		joystick = GameObject.FindObjectOfType<Joystick>();
         animator = GetComponent<Animator>();
 		RefreshSkills();
     }
@@ -26,6 +29,12 @@ public class PlayerController : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+		if (moveHorizontal == 0 && moveVertical == 0)
+		{
+			moveHorizontal = joystick.GetAxis().x;
+			moveVertical = joystick.GetAxis().y;
+		}
+
 		if (!(transform.position.y + moveVertical * speed < mainController.upBound && transform.position.y + moveVertical * speed > mainController.downBound))
 			moveVertical = 0;
 		transform.Translate(moveHorizontal * speed, moveVertical * speed, 0);
@@ -34,33 +43,36 @@ public class PlayerController : MonoBehaviour
 		theScale.x = moveHorizontal > 0 ? Mathf.Abs(this.transform.localScale.x) * -1 : moveHorizontal < 0 ? Mathf.Abs(this.transform.localScale.x) * 1 : theScale.x;
 		transform.localScale = theScale;
 		if (Input.GetButtonDown("Jump"))
-			UseGuitar();
+			UseSkill(SkillType.Guitar);
 		if (Input.GetKeyDown(KeyCode.H))
-			UseHammer();
+			UseSkill(SkillType.Hammer);
     }
 
 	private void RefreshSkills()
 	{
 		skills = new List<Skill>();
-		/*foreach (var sk in mainController._base.skills)
-			skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));*/
+		foreach (var sk in mainController._base.skills)
+			skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));
 	}
-	private void UseGuitar()
+	public void UseSkill(SkillType usingSkillType)
 	{
-		//add guitar duration
-		animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
-		foreach (var enemy in mainController.enemies)
-			enemy.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
+		switch (usingSkillType)
+		{
+		case SkillType.Curtain:
+			Debug.LogWarning("USE CURTAIN");
+			break;
+		case SkillType.Hammer:
+			EnemyController enemy = mainController.FindNearEnemy();
+			if (enemy != null)
+				enemy.GetHammerDamage((int)GetSkill(SkillType.Hammer).power);
+			break;
+		case SkillType.Guitar:
+			animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
+			foreach (var en in mainController.enemies)
+				en.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
+			break;
+		}
 	}
-	private void UseHammer()
-	{
-		//play hammer animation
-		EnemyController enemy = mainController.FindNearEnemy();
-		if (enemy != null)
-			enemy.GetHammerDamage((int)GetSkill(SkillType.Hummer).power);
-		//minus hammer energy
-	}
-
 	private Skill GetSkill(SkillType skillType)
 	{
 		foreach (var sk in skills)

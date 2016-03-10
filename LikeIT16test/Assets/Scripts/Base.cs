@@ -14,7 +14,7 @@ public class LevelSettings
 	public int scoreBronze, scoreSilver, scoreGold;
 }
 
-public enum SkillType {Curtain, Guitar, Hummer};
+public enum SkillType {Curtain, Guitar, Hammer};
 [System.Serializable]
 public class SkillSettings
 {

@@ -1,23 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class Button : MonoBehaviour 
 {
-	public enum ButtonAction {GoToScene, GoToLevel}
+	public enum ButtonAction {GoToScene, GoToLevel, UseSkill}
 	public ButtonAction buttonAction;
+	public bool changeSprite;
+	
+	[HideInInspector]
 	public int parm;
+	[HideInInspector]
+	public Sprite buttonOff, buttonOn;
+	[HideInInspector]
+	public SkillType skillType;
 
 	const float scaleValue = 0.9f;
-
+	
 	void OnMouseDown()
 	{
-		this.transform.localScale *= scaleValue;
+		if (changeSprite)
+			this.GetComponent<SpriteRenderer>().sprite = buttonOn;
+		else
+			this.transform.localScale *= scaleValue;
 	}
 
 	void OnMouseUp()
 	{
-		this.transform.localScale /= scaleValue;
+		if (changeSprite)
+			this.GetComponent<SpriteRenderer>().sprite = buttonOff;
+		else
+			this.transform.localScale /= scaleValue;
 		DoAction();
 	}
 		
@@ -31,6 +45,9 @@ public class Button : MonoBehaviour
 		case ButtonAction.GoToLevel:
 			SaveManager.Instance.SetCurrentLevel(parm);
 			SceneManager.LoadScene(2);
+			break;
+		case ButtonAction.UseSkill:
+			MainController.Instance.UseSkill(skillType);
 			break;
 		default:
 			Debug.LogWarning(buttonAction.ToString());
@@ -49,5 +66,30 @@ public class Button : MonoBehaviour
 		TextMesh txt = this.transform.GetChild(0).GetComponent<TextMesh>();
 		txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, 1);
 		this.GetComponent<BoxCollider2D>().enabled = true;
+	}
+}
+
+[CustomEditor(typeof(Button))]
+public class ButtonInspector : Editor
+{
+	public override void OnInspectorGUI()
+	{
+		DrawDefaultInspector();
+		var button = target as Button;
+
+		if (button.buttonAction == Button.ButtonAction.UseSkill)
+		{
+			GUILayout.Space(20);
+			EditorGUILayout.LabelField("Skill:");
+			button.skillType = (SkillType)EditorGUILayout.EnumPopup(button.skillType);
+			GUILayout.Space(20);
+		}
+		if (button.changeSprite)
+		{
+			button.buttonOff = (Sprite)EditorGUILayout.ObjectField("OFF:", button.buttonOff, typeof(Sprite), false);
+			button.buttonOn = (Sprite)EditorGUILayout.ObjectField("ON:", button.buttonOn, typeof(Sprite), false);
+		}
+		if (button.buttonAction == Button.ButtonAction.GoToScene)
+			button.parm = EditorGUILayout.IntSlider(button.parm, 0, SceneManager.sceneCountInBuildSettings);
 	}
 }
