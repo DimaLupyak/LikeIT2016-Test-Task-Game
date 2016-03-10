@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class Button : MonoBehaviour 
 {
-	public enum ButtonAction {GoToScene, GoToLevel, UseSkill}
+	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy}
 	public ButtonAction buttonAction;
 	public bool changeSprite;
 	
@@ -49,6 +51,9 @@ public class Button : MonoBehaviour
 		case ButtonAction.UseSkill:
 			MainController.Instance.UseSkill(skillType);
 			break;
+		case ButtonAction.CreateEnemy:
+			MainController.Instance.CreateNewEnemy();
+			break;
 		default:
 			Debug.LogWarning(buttonAction.ToString());
 			break;
@@ -69,6 +74,7 @@ public class Button : MonoBehaviour
 	}
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Button))]
 public class ButtonInspector : Editor
 {
@@ -90,6 +96,11 @@ public class ButtonInspector : Editor
 			button.buttonOn = (Sprite)EditorGUILayout.ObjectField("ON:", button.buttonOn, typeof(Sprite), false);
 		}
 		if (button.buttonAction == Button.ButtonAction.GoToScene)
+		{
+			GUILayout.Space(20);
+			EditorGUILayout.LabelField("Go to scene " + button.parm);
 			button.parm = EditorGUILayout.IntSlider(button.parm, 0, SceneManager.sceneCountInBuildSettings);
+		}
 	}
 }
+#endif

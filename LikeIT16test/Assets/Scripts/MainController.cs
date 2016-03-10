@@ -61,7 +61,7 @@ public class MainController : MonoBehaviour
 	{
 		player.UseSkill(skillType);
 	}
-	void CreateNewEnemy()
+	public void CreateNewEnemy()
 	{
 		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
 		GameObject tmpEnemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity) as GameObject;
