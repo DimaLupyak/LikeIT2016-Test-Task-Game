@@ -10,6 +10,7 @@ public class MainController : MonoBehaviour
 
 	const float damageRadius = 2f;
 
+
 	public Base _base;
 	public GameObject enemyPrefab;
 	public Transform upBoundTransform;
@@ -19,6 +20,8 @@ public class MainController : MonoBehaviour
 	public List<EnemyController> enemies;
 	[HideInInspector]
 	public float upBound, downBound;
+
+    private PuzzlesManager puzzlesManager;
 
 	void Awake()
 	{
@@ -31,7 +34,9 @@ public class MainController : MonoBehaviour
 		enemies = new List<EnemyController>();
 		upBound = upBoundTransform.position.y;
 		downBound = downBoundTransform.position.y;
-	}
+        puzzlesManager = new PuzzlesManager(3);
+        puzzlesManager.LogTable();
+    }
 
 	public EnemyController FindNearEnemy()
 	{
