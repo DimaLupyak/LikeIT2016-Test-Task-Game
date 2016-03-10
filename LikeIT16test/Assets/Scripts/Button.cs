@@ -90,6 +90,10 @@ public class ButtonInspector : Editor
 			button.buttonOn = (Sprite)EditorGUILayout.ObjectField("ON:", button.buttonOn, typeof(Sprite), false);
 		}
 		if (button.buttonAction == Button.ButtonAction.GoToScene)
+		{
+			GUILayout.Space(20);
+			EditorGUILayout.LabelField("Go to scene " + button.parm);
 			button.parm = EditorGUILayout.IntSlider(button.parm, 0, SceneManager.sceneCountInBuildSettings);
+		}
 	}
 }
