@@ -32,7 +32,7 @@ class PuzzlesManager
 
     public string GetHint()
     {
-        int hintType = Random.Range(0, 7);
+        int hintType = Random.Range(0, 6);
         int houseNumber = Random.Range(0, houseCount);
         switch (hintType)
         {
@@ -47,8 +47,6 @@ class PuzzlesManager
             case 4:
                 return "The " + Table[2, houseNumber] + "-drinkers live in the " + Table[0, houseNumber] + " house";
             case 5:
-                return "The couple, that own the " + Table[1, houseNumber] + " drink " + Table[2, houseNumber];
-            case 6:
                 return "The couple, that own the " + Table[1, houseNumber] + " live in the " + Table[0, houseNumber] + " house";
         }
         return "";
