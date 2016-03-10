@@ -22,11 +22,12 @@ public class MainController : MonoBehaviour
 	public float upBound, downBound;
 
     private PuzzlesManager puzzlesManager;
-
+	public static MainController Instance;
 	void Awake()
 	{
-		//if (SaveManager.Instance == null)
-		//	SceneManager.LoadScene(0);
+		Instance = this;
+		if (SaveManager.Instance == null)
+			Application.LoadLevel(0);
 	}
 	void Start()
 	{
@@ -56,7 +57,10 @@ public class MainController : MonoBehaviour
 		return tmpEnemy;
 	}
 
-
+	public void UseSkill(SkillType skillType)
+	{
+		player.UseSkill(skillType);
+	}
 	void CreateNewEnemy()
 	{
 		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
