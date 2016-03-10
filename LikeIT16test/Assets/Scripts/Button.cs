@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class Button : MonoBehaviour 
 {
@@ -72,6 +74,7 @@ public class Button : MonoBehaviour
 	}
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Button))]
 public class ButtonInspector : Editor
 {
@@ -100,3 +103,4 @@ public class ButtonInspector : Editor
 		}
 	}
 }
+#endif
