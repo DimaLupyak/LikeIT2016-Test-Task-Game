@@ -35,6 +35,7 @@ public class MainController : MonoBehaviour
 		upBound = upBoundTransform.position.y;
 		downBound = downBoundTransform.position.y;
         puzzlesManager = new PuzzlesManager(3);
+        
     }
 
 	public EnemyController FindNearEnemy()
@@ -67,5 +68,7 @@ public class MainController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.K))
 			CreateNewEnemy();
-	}
+        if (Input.GetKeyDown(KeyCode.Q))
+            Debug.Log(puzzlesManager.GetHint());
+    }
 }
