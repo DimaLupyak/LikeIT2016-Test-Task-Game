@@ -11,7 +11,7 @@ public class Base : MonoBehaviour
 public class LevelSettings
 {
 	public string name;
-	public int scoreBronze, scoreSilver, scoreGold;
+	public float[] winTimes;
 }
 
 public enum SkillType {Curtain = 1, Hammer = 2, Guitar = 3, None = 0};
