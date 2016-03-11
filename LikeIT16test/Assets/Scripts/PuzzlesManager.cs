@@ -74,6 +74,18 @@ class PuzzlesManager
         return "";
     }
 
+    public int GetIndex(string str)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < houseCount; j++)
+            {
+                if (Table[i, j] == str) return j;
+            }
+        }
+        return -1;
+    }
+
     private void LogTable()
     {
         for (int i = 0; i < houseCount; i++)
@@ -92,4 +104,6 @@ class PuzzlesManager
             array[randomIndex] = temp;
         }
     }
+
+    
 }
