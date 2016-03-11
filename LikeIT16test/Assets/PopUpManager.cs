@@ -67,7 +67,7 @@ public class PopUpManager : MonoBehaviour
 	}
 }
 
-public enum PageType {NewHint, HintList, Menu}
+public enum PageType {NewHint, HintList, Menu, Win, GameOver}
 [System.Serializable]
 public class PageProp
 {

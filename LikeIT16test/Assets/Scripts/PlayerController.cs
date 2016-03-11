@@ -53,17 +53,22 @@ public class PlayerController : MonoBehaviour
 	void SkillFill()
 	{
 		for (int i = 0; i < 3; i++)
-			skillsEnergy[i] += skillsEnergy[i] < 100 ? Time.deltaTime : 0;
+			skillsEnergy[i] += skillsEnergy[i] < 100 ? Time.deltaTime * 2 : 0;
 	}
 	void SkillDown()
 	{
 		if (currentUsingSkill == SkillType.Curtain || currentUsingSkill == SkillType.Guitar)
-			skillsEnergy[(int)currentUsingSkill - 1] -= skillsEnergy[(int)currentUsingSkill - 1] < 100 ? Time.deltaTime * 4 : 0;
+		{
+			skillsEnergy[(int)currentUsingSkill - 1] -= skillsEnergy[(int)currentUsingSkill - 1] > 0 ? Time.deltaTime * 15 : 0;
+			if (skillsEnergy[(int)currentUsingSkill - 1] <= 0)
+				UseSkill(currentUsingSkill);
+		}
 	}
     void Update()
     {
 		SkillFill();
 		SkillDown();
+		UpdateSkillBars();
 		if (isDie)
 			return;
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -103,6 +108,8 @@ public class PlayerController : MonoBehaviour
     {
 		if (currentUsingSkill != SkillType.None && usingSkillType != currentUsingSkill)
 			return;
+		if (skillsEnergy[(int)usingSkillType - 1] < 10)
+			return;
         switch (usingSkillType)
         {
             case SkillType.Curtain:
@@ -117,8 +124,7 @@ public class PlayerController : MonoBehaviour
 		case SkillType.Hammer:
 			if (currentUsingSkill == SkillType.Hammer)
 				return;
-			Debug.LogWarning(currentUsingSkill.ToString());
-			skillsEnergy[(int)SkillType.Hammer - 1] -= 20;
+			skillsEnergy[(int)SkillType.Hammer - 1] -= 10;
 			hummerAnimator.SetBool("Hummer", true);
 			EnemyController enemy = mainController.FindNearEnemy();  
 			if (enemy != null)
@@ -179,6 +185,7 @@ public class PlayerController : MonoBehaviour
 		isDie = true;
 		body.transform.Translate(0, -1f, 0);
 		body.transform.Rotate(0, 0, -90);
+		PopUpManager.Instance.OpenPage(PageType.GameOver);
 		yield return new WaitForSeconds(0);
 	}
 }

@@ -30,6 +30,7 @@ public class MainController : MonoBehaviour
 	}
 	void Start()
 	{
+		Time.timeScale = 1;
 		player = GameObject.FindObjectOfType<PlayerController>();
 		enemies = new List<EnemyController>();
 		upBound = upBoundTransform.position.y;
