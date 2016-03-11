@@ -18,7 +18,6 @@ class PuzzlesManager
     {
         this.houseCount = houseCount;
         GeneratedHints = new List<string>();
-        ShuffleArray(colours);
         ShuffleArray(pets);
         ShuffleArray(drinks);
         ShuffleArray(fatherNames);
