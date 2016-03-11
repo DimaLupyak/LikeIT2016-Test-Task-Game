@@ -66,7 +66,7 @@ public class TilesEditor : Editor
 
 			if (!painted)
 			{
-				Undo.IncrementCurrentGroup(); //Create undo state for the tile painting
+				Undo.RevertAllInCurrentGroup(); //Create undo state for the tile painting
 				painted = true;		
 			}
 
