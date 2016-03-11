@@ -183,7 +183,9 @@ public class PlayerController : MonoBehaviour
 	{
 		//TODO : ADD DEAD ANIMATION
 		isDie = true;
-		body.transform.Translate(0, -1f, 0);
+        hummerAnimator.SetBool("Dead", true);
+        animator.SetBool("Dead", true);
+        body.transform.Translate(0, -1f, 0);
 		body.transform.Rotate(0, 0, -90);
 		PopUpManager.Instance.OpenPage(PageType.GameOver);
 		yield return new WaitForSeconds(0);
