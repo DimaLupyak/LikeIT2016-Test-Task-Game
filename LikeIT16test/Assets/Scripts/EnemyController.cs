@@ -1,53 +1,90 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SocialPlatforms;
+using Holoville.HOTween;
 
+public enum EnemyType {Pantera, Bat}
 public class EnemyController : MonoBehaviour 
 {
+	public EnemyType enemyType;
 
     //------------Stats--------------
-	public float speed = 50;
-    public float attackRange = 50;
-	public float maxHealth = 100;
-	public float health = 100;
-	public float level = 1;
+	private float speed = 0.02f;
+	private float attackRange = 20;
+	private float health = 100;
+	public float power = 10;
 	//-------------------------------
+
+	const float maxHealth = 100;
 
 	public SpriteRenderer sprite, healthBar;
 	public GameObject character;
 	public bool isFacingRight = true;
 
-	private GameObject player;
+	private PlayerController player;
 	private MainController mainController;
     private Animator animator;
 	private bool blockMove;
-    private float minDistance;
+    private float minDistance, hitDelta, distance, hitTimer;
 
     void Start()
     {
 		animator = character.GetComponent<Animator>();
-		player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+		player = GameObject.FindObjectOfType<PlayerController>();
 		mainController = GameObject.FindObjectOfType<MainController>();
 		speed += Random.Range(0, 200) / 10000f;
         minDistance = 1 + Random.Range(0, 200) / 100f;
+		hitDelta = 1 + Random.Range(0, 200) / 100f;
     }
 
     void Update()
     {
 		if (blockMove)
 		{
-			animator.SetFloat("hSpeed", 0);
+			if (enemyType == EnemyType.Pantera)
+				animator.SetFloat("hSpeed", 0);
 			return;
 		}
-		float distance = Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
+		distance = enemyType == EnemyType.Bat ? Mathf.Abs(player.transform.position.x - transform.position.x) : Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
 		if (distance < attackRange && distance > minDistance)
 		{
-			transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
-			animator.SetFloat("hSpeed", 1);
+			var destination = enemyType == EnemyType.Bat ? new Vector3(player.transform.position.x, this.transform.position.y, this.transform.position.z) : player.transform.position;
+			transform.position = Vector3.MoveTowards(transform.position,  destination, speed);
+			if (enemyType == EnemyType.Pantera)
+				animator.SetFloat("hSpeed", 1);
 		}
-		else animator.SetFloat("hSpeed", 0);
+		else if (enemyType == EnemyType.Pantera) 
+			animator.SetFloat("hSpeed", 0);
+		if (distance < minDistance && !player.isDie)
+			CheckHit();
 		FlipCheck();
     }
+
+	void CheckHit()
+	{
+		hitTimer += Time.deltaTime;
+		if (hitTimer >= hitDelta)
+			Hit();
+	}
+
+	IEnumerator BatHit()
+	{
+		blockMove = true;
+		var startsPos = this.transform.position;
+		HOTween.To(this.transform, 0.3f, new TweenParms().Prop("position", player.transform.position).Ease(EaseType.EaseInBack));
+		yield return new WaitForSeconds(0.4f);
+		if (!player.isDie)
+			player.GetDamage(power);
+		HOTween.To(this.transform, 0.3f, new TweenParms().Prop("position", startsPos).Ease(EaseType.EaseOutBack));
+		yield return new WaitForSeconds(0.4f);
+		blockMove = false;
+	}
+	private void Hit()
+	{
+		hitTimer = 0;
+		if (enemyType == EnemyType.Bat)
+			StartCoroutine(BatHit());
+	}
 
     private void FlipCheck()
     {
@@ -82,6 +119,7 @@ public class EnemyController : MonoBehaviour
 		yield return new WaitForSeconds(delay);
 		blockMove = false;
 	}
+
 	IEnumerator ShowDamage()
 	{
 		for (int i = 0; i < 3; i ++)

@@ -10,14 +10,19 @@ public class PlayerController : MonoBehaviour
     public float speed = 100;
     //-------------------------
 
+	public GameObject body, healthBar;
+
     private Joystick joystick;
-    public GameObject body;
     private EnemyController[] enemies;
     private MainController mainController;
     private Animator animator;
+	private float stratHealBarX;
+
+	public bool isDie = false;
 
     void Start()
     {
+		stratHealBarX = healthBar.transform.localScale.x;
         mainController = GameObject.FindObjectOfType<MainController>();
         joystick = GameObject.FindObjectOfType<Joystick>();
         animator = GetComponent<Animator>();
@@ -26,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+		if (isDie)
+			return;
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -58,6 +65,7 @@ public class PlayerController : MonoBehaviour
         foreach (var sk in mainController._base.skills)
             skills.Add(new Skill(sk.skillType, sk.powerValue[SaveManager.Instance.GetSkillLevel(sk.skillType)]));
     }
+
     public void UseSkill(SkillType usingSkillType)
     {
         switch (usingSkillType)
@@ -88,6 +96,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
     private Skill GetSkill(SkillType skillType)
     {
         foreach (var sk in skills)
@@ -95,6 +104,43 @@ public class PlayerController : MonoBehaviour
                 return sk;
         return new Skill();
     }
+
+	public void GetDamage(float damage)
+	{
+		health -= damage;
+		StartCoroutine(ShowDamage());
+		UpdateHealthBar();
+	}
+
+	void UpdateHealthBar()
+	{
+		if (health <= 0)
+		{
+			StartCoroutine(Die());
+			healthBar.transform.localScale = Vector3.zero;
+		}
+		else healthBar.transform.localScale = new Vector3(stratHealBarX * (health / 100f), healthBar.transform.localScale.y, 1);
+	}
+
+	IEnumerator ShowDamage()
+	{
+		for (int i = 0; i < 3; i ++)
+		{
+			yield return new WaitForSeconds(0.02f);	
+			body.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
+			yield return new WaitForSeconds(0.02f);	
+			body.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+		}
+	}
+
+	IEnumerator Die()
+	{
+		//TODO : ADD DEAD ANIMATION
+		isDie = true;
+		body.transform.Translate(0, -1f, 0);
+		body.transform.Rotate(0, 0, -90);
+		yield return new WaitForSeconds(0);
+	}
 }
 
 [System.Serializable]
