@@ -9,7 +9,6 @@ public class SkillDescription : MonoBehaviour {
 	// Use this for initialization
 
 	void Start () {
-
 		switch(SkillName)
 		{
 		case "guitar":
@@ -25,7 +24,7 @@ public class SkillDescription : MonoBehaviour {
 			break;
 		}
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
 	
