@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     {
 		if (currentUsingSkill != SkillType.None && usingSkillType != currentUsingSkill)
 			return;
-		if (skillsEnergy[(int)usingSkillType - 1] < 10)
+		if (currentUsingSkill == SkillType.None && skillsEnergy[(int)usingSkillType - 1] < 10)
 			return;
         switch (usingSkillType)
         {
