@@ -10,9 +10,8 @@ public class MainController : MonoBehaviour
 
 	const float damageRadius = 2f;
 
-
 	public Base _base;
-	public GameObject enemyPrefab;
+	public GameObject batPrefab, panteraPrefab;
 	public Transform upBoundTransform;
 	public Transform downBoundTransform;
 
@@ -36,9 +35,12 @@ public class MainController : MonoBehaviour
 		upBound = upBoundTransform.position.y;
 		downBound = downBoundTransform.position.y;
         puzzlesManager = new PuzzlesManager(3);
-        
     }
 
+	public List<string> GetHints()
+	{
+		return puzzlesManager.GeneratedHints;
+	}
 	public EnemyController FindNearEnemy()
 	{
 		EnemyController tmpEnemy = new EnemyController();
@@ -61,18 +63,26 @@ public class MainController : MonoBehaviour
 	{
 		player.UseSkill(skillType);
 	}
-	public void CreateNewEnemy()
+	public void CreateNewEnemy(EnemyType createEnemyType)
 	{
 		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
+		randomPos.y = createEnemyType == EnemyType.Pantera ? randomPos.y : Random.Range(-250, 50) / 100f;
+		var enemyPrefab = createEnemyType == EnemyType.Bat ? batPrefab : panteraPrefab;
 		GameObject tmpEnemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity) as GameObject;
 		enemies.Add(tmpEnemy.GetComponent<EnemyController>());
+	}
+
+	public void ShowNewHint()
+	{
+		PopUpManager.Instance.OpenPage(PageType.NewHint);
+		PopUpManager.Instance.ShowNewHint(puzzlesManager.GetHint());
 	}
 
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.K))
-			CreateNewEnemy();
+			CreateNewEnemy(EnemyType.Bat);
         if (Input.GetKeyDown(KeyCode.Q))
-            Debug.Log(puzzlesManager.GetHint());
+			ShowNewHint();
     }
 }

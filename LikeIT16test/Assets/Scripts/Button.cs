@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
+[ExecuteInEditMode]
 public class Button : MonoBehaviour 
 {
-	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy}
+	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy, PrevHint, NextHint, ClosePopUp, ShowHintList}
 	public ButtonAction buttonAction;
 	public bool changeSprite;
-	
+
+	[HideInInspector]
+	public bool attachToSide;
+	[HideInInspector]
+	public Vector2 normalResolution;
 	[HideInInspector]
 	public int parm;
 	[HideInInspector]
@@ -19,7 +24,12 @@ public class Button : MonoBehaviour
 	public SkillType skillType;
 
 	const float scaleValue = 0.9f;
-	
+
+	void Start()
+	{
+		if (attachToSide)
+			AttachToSide();
+	}
 	void OnMouseDown()
 	{
 		if (changeSprite)
@@ -52,7 +62,20 @@ public class Button : MonoBehaviour
 			MainController.Instance.UseSkill(skillType);
 			break;
 		case ButtonAction.CreateEnemy:
-			MainController.Instance.CreateNewEnemy();
+			MainController.Instance.CreateNewEnemy(EnemyType.Bat);
+			break;
+		case ButtonAction.PrevHint:
+			PopUpManager.Instance.ShowNextHint(false);
+			break;
+		case ButtonAction.NextHint:
+			PopUpManager.Instance.ShowNextHint(true);
+			break;
+		case ButtonAction.ClosePopUp:
+			PopUpManager.Instance.CloseWindow();
+			break;
+		case ButtonAction.ShowHintList:
+			PopUpManager.Instance.OpenPage(PageType.HintList);
+			PopUpManager.Instance.UpdateTips();
 			break;
 		default:
 			Debug.LogWarning(buttonAction.ToString());
@@ -71,6 +94,17 @@ public class Button : MonoBehaviour
 		TextMesh txt = this.transform.GetChild(0).GetComponent<TextMesh>();
 		txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, 1);
 		this.GetComponent<BoxCollider2D>().enabled = true;
+	}
+	public void AttachToSide()
+	{
+		var tmpPos = this.transform.position;
+		tmpPos.x *= ((float)Screen.width / (float)Screen.height) / (normalResolution.x / normalResolution.y);
+		this.transform.position = tmpPos;
+	}
+	public void SetNormalResolution()
+	{
+		normalResolution = new Vector2(Screen.width, Screen.height);
+		Debug.LogWarning("Set!");
 	}
 }
 
@@ -100,6 +134,12 @@ public class ButtonInspector : Editor
 			GUILayout.Space(20);
 			EditorGUILayout.LabelField("Go to scene " + button.parm);
 			button.parm = EditorGUILayout.IntSlider(button.parm, 0, SceneManager.sceneCountInBuildSettings);
+		}
+
+		if (button.attachToSide = EditorGUILayout.Toggle("Присунути!", button.attachToSide))
+		{
+			if (GUILayout.Button("Зараз норм"))
+				button.SetNormalResolution();
 		}
 	}
 }

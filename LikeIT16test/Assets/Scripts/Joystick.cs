@@ -9,7 +9,7 @@ public class Joystick : MonoBehaviour
 	private bool isActive;
 	private Transform circleBig, circleSmall;
 	private Vector2 startPos;
-	private PlayerController player;
+//	private PlayerController player;
 	private float cos = 0, sin = 0;
 
 	void Awake () 
@@ -20,7 +20,7 @@ public class Joystick : MonoBehaviour
 		circleBig = transform.GetChild(0).transform;
 		circleSmall = circleBig.GetChild(0).transform;
 		circleBig.gameObject.SetActive(false);
-		player = GameObject.FindObjectOfType<PlayerController>();
+		//player = GameObject.FindObjectOfType<PlayerController>();
 	}
 		
 	void Update()

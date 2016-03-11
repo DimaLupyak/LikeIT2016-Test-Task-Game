@@ -35,7 +35,7 @@ public class Tiles : MonoBehaviour
 	public float objOffsetY = 0.0f;
 
 	//is tile placing enabled
-	public bool enabled = false;
+//	public bool enabled = false;
 
 	//the tiles' parent object
 	public Transform parent;

@@ -8,10 +8,11 @@ public class SmoothFollow2 : MonoBehaviour {
 	public float damping = 5.0f;
 	public bool smoothRotation = true;
 	public float rotationDamping = 10.0f;
+	public float deltaX = 0;
 
-	void Update () {
-		Vector3 wantedPosition = target.TransformPoint(0, height, -distance);
-		transform.position = Vector3.Lerp (transform.position, wantedPosition, Time.deltaTime * damping);
- 
+	void Update () 
+	{
+		Vector3 wantedPosition = target.TransformPoint(0, height, -distance) + new Vector3(deltaX, 0, 0);
+		transform.position = Vector3.Lerp (transform.position , wantedPosition, Time.deltaTime * damping);
 	}
 }
