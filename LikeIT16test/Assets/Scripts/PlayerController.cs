@@ -68,16 +68,6 @@ public class PlayerController : MonoBehaviour
         {
             case SkillType.Curtain:
                 showerAnimator.SetBool("Shower", !showerAnimator.GetBool("Shower"));
-                /*if (body.activeInHierarchy)
-                {
-                    body.SetActive (false);
-                    animator.SetBool("Shower", !animator.GetBool("Shower"));
-                }
-                else
-                {
-                    body.SetActive (true);
-                    animator.SetBool("Shower", !animator.GetBool("Shower"));
-                }*/
                 break;
             case SkillType.Hammer:
                 hummerAnimator.SetBool("Hummer", true);
