@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     //-------------------------
 
 	private Joystick joystick;
-
+	public GameObject body;
 	private EnemyController[] enemies;
 	private MainController mainController;
     private Animator animator;
@@ -59,7 +59,13 @@ public class PlayerController : MonoBehaviour
 		switch (usingSkillType)
 		{
 		case SkillType.Curtain:
-			Debug.LogWarning("USE CURTAIN");
+			if (body.activeInHierarchy) {
+				body.SetActive (false);
+				animator.SetBool ("Shower", !animator.GetBool ("Shower"));
+			} else {
+				body.SetActive (true);
+				animator.SetBool ("Shower", !animator.GetBool ("Shower"));
+			}
 			break;
 		case SkillType.Hammer:
 			EnemyController enemy = mainController.FindNearEnemy();
