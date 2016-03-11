@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
 			return;
 		}
 		distance = enemyType == EnemyType.Bat ? Mathf.Abs(player.transform.position.x - transform.position.x) : Mathf.Sqrt(Mathf.Pow(player.transform.position.x - transform.position.x, 2) + Mathf.Pow(player.transform.position.y - transform.position.y, 2));
-		if (distance < attackRange && distance > minDistance)
+		if (distance < attackRange && distance > minDistance && !player.vShtorke)
 		{
 			var destination = enemyType == EnemyType.Bat ? new Vector3(player.transform.position.x, this.transform.position.y, this.transform.position.z) : player.transform.position;
 			transform.position = Vector3.MoveTowards(transform.position,  destination, speed);
@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
 		}
 		else if (enemyType == EnemyType.Pantera) 
 			animator.SetFloat("hSpeed", 0);
-		if (distance < minDistance && !player.isDie)
+		if (distance < minDistance && !player.isDie && !player.vShtorke)
 			CheckHit();
 		FlipCheck();
     }

@@ -10,7 +10,13 @@ public class PlayerController : MonoBehaviour
     public float speed = 100;
     //-------------------------
 
+
 	public GameObject body, healthBar;
+
+	public bool vShtorke = false;
+	//public bool usingSkill = false;
+
+	private SkillType currentUsingSkill = SkillType.None;
 
     private Joystick joystick;
     private EnemyController[] enemies;
@@ -20,6 +26,10 @@ public class PlayerController : MonoBehaviour
 
 	public bool isDie = false;
 
+	public Transform[] skillBars;
+	public float[] skillsEnergy = {100, 100, 100};
+	float skillBarScale;
+
     void Start()
     {
 		stratHealBarX = healthBar.transform.localScale.x;
@@ -27,10 +37,29 @@ public class PlayerController : MonoBehaviour
         joystick = GameObject.FindObjectOfType<Joystick>();
         animator = GetComponent<Animator>();
         RefreshSkills();
+		skillBarScale = skillBars[0].localScale.x;
     }
 
+	void SkillFill()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			skillsEnergy[i] += skillsEnergy[i] < 100 ? Time.deltaTime : 0;
+			skillBars[i].localScale = new Vector3(skillBarScale * (skillsEnergy[i] / 100f), 1, 0);
+		}
+	}
+	void SkillDown()
+	{
+		if (currentUsingSkill == SkillType.Curtain || currentUsingSkill == SkillType.Guitar)
+		{
+			skillsEnergy[(int)currentUsingSkill - 1] -= skillsEnergy[(int)currentUsingSkill - 1] < 100 ? Time.deltaTime * 4 : 0;
+			skillBars[(int)currentUsingSkill - 1].localScale = new Vector3(skillBarScale * (skillsEnergy[(int)currentUsingSkill - 1] / 100f), 1, 0);
+		}
+	}
     void Update()
     {
+		SkillFill();
+		SkillDown();
 		if (isDie)
 			return;
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -68,34 +97,37 @@ public class PlayerController : MonoBehaviour
 
     public void UseSkill(SkillType usingSkillType)
     {
+		if (currentUsingSkill != SkillType.None && usingSkillType != currentUsingSkill)
+			return;
+		currentUsingSkill = currentUsingSkill == SkillType.None ? usingSkillType : SkillType.None;
         switch (usingSkillType)
         {
             case SkillType.Curtain:
-                animator.SetBool("Shower", !animator.GetBool("Shower"));
-                /*if (body.activeInHierarchy)
-                {
-                    body.SetActive (false);
-                    animator.SetBool("Shower", !animator.GetBool("Shower"));
-                }
-                else
-                {
-                    body.SetActive (true);
-                    animator.SetBool("Shower", !animator.GetBool("Shower"));
-                }*/
+				vShtorke = !vShtorke;
+				animator.SetBool("Shower", vShtorke);
                 break;
-            case SkillType.Hammer:
-                animator.SetBool("Hummer", true);
-                EnemyController enemy = mainController.FindNearEnemy();  
-                if (enemy != null)
-                    enemy.GetHammerDamage((int)GetSkill(SkillType.Hammer).power);
-                break;
+
             case SkillType.Guitar:
                 animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
                 foreach (var en in mainController.enemies)
                     en.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
                 break;
+		case SkillType.Hammer:
+			animator.SetBool("Hummer", true);
+			EnemyController enemy = mainController.FindNearEnemy();  
+			if (enemy != null)
+				enemy.GetHammerDamage((int)GetSkill(SkillType.Hammer).power);
+			break;
         }
     }
+
+	IEnumerator ResetSkillTypeUsing(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		currentUsingSkill = SkillType.None;
+	}
+
+
 
     private Skill GetSkill(SkillType skillType)
     {
