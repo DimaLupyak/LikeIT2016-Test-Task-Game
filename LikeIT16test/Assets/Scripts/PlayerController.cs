@@ -16,9 +16,14 @@ public class PlayerController : MonoBehaviour
     private EnemyController[] enemies;
     private MainController mainController;
     private Animator animator;
+<<<<<<< HEAD
 	private float stratHealBarX;
 
 	public bool isDie = false;
+=======
+    private Animator hummerAnimator;
+    private Animator showerAnimator;
+>>>>>>> Animation
 
     void Start()
     {
@@ -26,6 +31,8 @@ public class PlayerController : MonoBehaviour
         mainController = GameObject.FindObjectOfType<MainController>();
         joystick = GameObject.FindObjectOfType<Joystick>();
         animator = GetComponent<Animator>();
+        hummerAnimator = transform.Find("Body").GetComponent<Animator>();
+        showerAnimator = transform.Find("Shower").GetComponent<Animator>();
         RefreshSkills();
     }
 
@@ -53,9 +60,9 @@ public class PlayerController : MonoBehaviour
             UseSkill(SkillType.Guitar);
         if (Input.GetKeyDown(KeyCode.H))
             UseSkill(SkillType.Hammer);
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hummer"))
+        if (hummerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Active"))
         {
-            animator.SetBool("Hummer", false);
+            hummerAnimator.SetBool("Hummer", false);
         }
     }
 
@@ -71,20 +78,10 @@ public class PlayerController : MonoBehaviour
         switch (usingSkillType)
         {
             case SkillType.Curtain:
-                animator.SetBool("Shower", !animator.GetBool("Shower"));
-                /*if (body.activeInHierarchy)
-                {
-                    body.SetActive (false);
-                    animator.SetBool("Shower", !animator.GetBool("Shower"));
-                }
-                else
-                {
-                    body.SetActive (true);
-                    animator.SetBool("Shower", !animator.GetBool("Shower"));
-                }*/
+                showerAnimator.SetBool("Shower", !showerAnimator.GetBool("Shower"));
                 break;
             case SkillType.Hammer:
-                animator.SetBool("Hummer", true);
+                hummerAnimator.SetBool("Hummer", true);
                 EnemyController enemy = mainController.FindNearEnemy();  
                 if (enemy != null)
                     enemy.GetHammerDamage((int)GetSkill(SkillType.Hammer).power);
