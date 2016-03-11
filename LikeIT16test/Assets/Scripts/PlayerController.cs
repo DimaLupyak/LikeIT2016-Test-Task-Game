@@ -16,14 +16,14 @@ public class PlayerController : MonoBehaviour
     private EnemyController[] enemies;
     private MainController mainController;
     private Animator animator;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	private float stratHealBarX;
 
 	public bool isDie = false;
-=======
+//=======
     private Animator hummerAnimator;
     private Animator showerAnimator;
->>>>>>> Animation
+//>>>>>>> Animation
 
     void Start()
     {
