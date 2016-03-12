@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 	public Transform leftBorder;
 	public Transform rightBorder;
 
+	public int killedEnemyCount = 0;
+
     private Joystick joystick;
     private EnemyController[] enemies;
     private MainController mainController;
@@ -35,10 +37,21 @@ public class PlayerController : MonoBehaviour
 	public float[] skillsEnergy = {100, 100, 100};
 	float skillBarScale;
 
+
+	void CheckHintShow()
+	{
+		if (killedEnemyCount >= 3)
+		{
+			mainController.ShowNewHint();
+			killedEnemyCount = 0;	
+		}
+	}
+
     void Start()
     {
 		stratHealBarX = healthBar.transform.localScale.x;
         mainController = GameObject.FindObjectOfType<MainController>();
+
         joystick = GameObject.FindObjectOfType<Joystick>();
         animator = GetComponent<Animator>();
         RefreshSkills();
@@ -56,7 +69,7 @@ public class PlayerController : MonoBehaviour
 	void SkillFill()
 	{
 		for (int i = 0; i < 3; i++)
-			skillsEnergy[i] += skillsEnergy[i] < 100 ? Time.deltaTime * 2 : 0;
+			skillsEnergy[i] += skillsEnergy[i] < 100 ? Time.deltaTime * 4 : 0;
 	}
 	void SkillDown()
 	{
@@ -74,6 +87,7 @@ public class PlayerController : MonoBehaviour
 		SkillFill();
 		SkillDown();
 		UpdateSkillBars();
+		CheckHintShow();
 		if (isDie)
 			return;
 		

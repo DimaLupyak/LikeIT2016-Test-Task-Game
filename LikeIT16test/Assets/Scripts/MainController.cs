@@ -11,7 +11,7 @@ public class MainController : MonoBehaviour
 	private PlayerController player;
 	private int direction;
 
-	const float damageRadius = 2f;
+	const float damageRadius = 3f;
 
 	public Base _base;
 	public GameObject batPrefab, panteraPrefab;
@@ -27,15 +27,29 @@ public class MainController : MonoBehaviour
 	[HideInInspector]
 	public float leftBound, rightBound;
 
-    private PuzzlesManager puzzlesManager;
+	private PuzzlesManager puzzlesManager;
 	public static MainController Instance;
 	public bool gamePause = false;
+
+	float enemyTimer = 0;
+	void CheckCreateEnemy()
+	{
+		enemyTimer += Time.deltaTime;
+		if (enemyTimer > 4 && enemies.Count < 8)
+		{
+			CreateNewEnemy(EnemyType.Pantera);
+			enemyTimer = 0;
+		}
+		//CreateNewEnemy(EnemyType.Bat);
+	}
+
 	void Awake()
 	{
 		Instance = this;
 		if (SaveManager.Instance == null)
 			Application.LoadLevel(0);
 	}
+
 	void Start()
 	{
 		Time.timeScale = 1;
@@ -50,9 +64,20 @@ public class MainController : MonoBehaviour
 
         puzzlesManager = new PuzzlesManager(3);
 
-		PopUpManager.Instance.SetTargetText(puzzlesManager.TargetForGui);
-		PopUpManager.Instance.OpenPage(PageType.Target);
+
     }
+
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.K))
+			CreateNewEnemy(EnemyType.Bat);
+		if (Input.GetKeyDown(KeyCode.L))
+			CreateNewEnemy(EnemyType.Pantera);
+		if (Input.GetKeyDown(KeyCode.Q))
+			ShowNewHint();
+		CheckHouseTouch();
+		CheckCreateEnemy();
+	}
 
 	void CheckHouseTouch()
 	{
@@ -103,7 +128,7 @@ public class MainController : MonoBehaviour
 	}
 	public void CreateNewEnemy(EnemyType createEnemyType)
 	{
-		var randomPos = new Vector3(player.transform.position.x + Random.Range(5, 15), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
+		var randomPos = new Vector3(player.transform.position.x + Random.Range(20, 35), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
 		randomPos.y = createEnemyType == EnemyType.Pantera ? randomPos.y : Random.Range(-250, 50) / 100f;
 		var enemyPrefab = createEnemyType == EnemyType.Bat ? batPrefab : panteraPrefab;
 		GameObject tmpEnemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity) as GameObject;
@@ -116,16 +141,7 @@ public class MainController : MonoBehaviour
 		PopUpManager.Instance.ShowNewHint(puzzlesManager.GetHint());
 	}
 
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.K))
-			CreateNewEnemy(EnemyType.Bat);
-		if (Input.GetKeyDown(KeyCode.L))
-			CreateNewEnemy(EnemyType.Pantera);
-        if (Input.GetKeyDown(KeyCode.Q))
-			ShowNewHint();
-		CheckHouseTouch();
-    }
+
 }
 
 [System.Serializable]

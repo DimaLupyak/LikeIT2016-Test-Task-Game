@@ -48,6 +48,8 @@ class PuzzlesManager
                 TargetForGui = Table[row, column] + " \n are the parents of baby.";
                 break;
         }
+		PopUpManager.Instance.SetTargetText(TargetForGui);
+		PopUpManager.Instance.OpenPage(PageType.Target);
     }
 
     public string GetHint()

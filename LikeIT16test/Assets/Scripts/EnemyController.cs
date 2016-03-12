@@ -135,6 +135,7 @@ public class EnemyController : MonoBehaviour
 
 	IEnumerator Die()
 	{
+		player.killedEnemyCount ++;
 		mainController.enemies.Remove(this);
 		healthBar.enabled = false;
 		blockMove = true;
