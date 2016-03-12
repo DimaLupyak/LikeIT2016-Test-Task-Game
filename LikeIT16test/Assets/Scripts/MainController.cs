@@ -17,11 +17,15 @@ public class MainController : MonoBehaviour
 	public GameObject batPrefab, panteraPrefab;
 	public Transform upBoundTransform;
 	public Transform downBoundTransform;
+	public Transform leftBoundTransform;
+	public Transform rightBoundTransform;
 
 	[HideInInspector]
 	public List<EnemyController> enemies;
 	[HideInInspector]
 	public float upBound, downBound;
+	[HideInInspector]
+	public float leftBound, rightBound;
 
     private PuzzlesManager puzzlesManager;
 	public static MainController Instance;
@@ -37,8 +41,13 @@ public class MainController : MonoBehaviour
 		Time.timeScale = 1;
 		player = GameObject.FindObjectOfType<PlayerController>();
 		enemies = new List<EnemyController>();
+
 		upBound = upBoundTransform.position.y;
 		downBound = downBoundTransform.position.y;
+
+		leftBound = leftBoundTransform.position.x;
+		rightBound = rightBoundTransform.position.x;
+
         puzzlesManager = new PuzzlesManager(3);
     }
 
