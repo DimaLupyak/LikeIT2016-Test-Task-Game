@@ -15,11 +15,13 @@ class PuzzlesManager
     public string TargetForGui { get; set; }
     public List<string> GeneratedHints { get; set; }
 
-    public PuzzlesManager(int houseCount)
+    public PuzzlesManager(int houseCount) 
     {
-
         this.houseCount = houseCount;
         GeneratedHints = new List<string>();
+		colours = new string[MainController.Instance.houses.Length];
+		for (int i = 0; i < MainController.Instance.houses.Length; i++)
+			colours[i] = MainController.Instance.houses[i].color;
         ShuffleArray(pets);
         ShuffleArray(drinks);
         ShuffleArray(fatherNames);

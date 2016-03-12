@@ -21,9 +21,9 @@ public class Timer : MonoBehaviour {
 	{
 		Timer.Instance = this;
 		_base = MainController.Instance._base;
-		threeStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[2];
-		twoStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[1];
-		oneStarTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[0];
+		threeStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel() - 1].winTimes[2];
+		twoStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel() - 1].winTimes[1];
+		oneStarTime = _base.levels[SaveManager.Instance.GetCurrentLevel() - 1].winTimes[0];
 		runTime = true;
 	}
 

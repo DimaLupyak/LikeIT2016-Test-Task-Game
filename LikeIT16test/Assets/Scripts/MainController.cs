@@ -35,9 +35,9 @@ public class MainController : MonoBehaviour
 	void CheckCreateEnemy()
 	{
 		enemyTimer += Time.deltaTime;
-		if (enemyTimer > 4 && enemies.Count < 8)
+		if (enemyTimer > 6 && enemies.Count < 8)
 		{
-			if (enemies.Count + 1 % 3 == 0)
+			if ((enemies.Count + 1) % 3 == 0)
 				CreateNewEnemy(EnemyType.Bat);
 			CreateNewEnemy(EnemyType.Pantera);
 			enemyTimer = 0;
