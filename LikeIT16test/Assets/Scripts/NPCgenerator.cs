@@ -41,6 +41,11 @@ public class NPCgenerator : MonoBehaviour {
 		placeHolders [12].GetComponent<SpriteRenderer> ().sprite = faces [Random.Range (0, 4)];
 	}
 
+    void Start()
+    {
+        GenerateNPC();
+    }
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.M)) {
