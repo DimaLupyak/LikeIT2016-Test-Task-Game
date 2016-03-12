@@ -11,11 +11,12 @@ class PuzzlesManager
     private string[] drinks = { "water", "beer", "milk", "juice", "coffee" };
     private string[] fatherNames = { "Dima", "Slavic", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
-
+    public string Target { get; set; }
     public List<string> GeneratedHints { get; set; }
 
     public PuzzlesManager(int houseCount)
     {
+
         this.houseCount = houseCount;
         GeneratedHints = new List<string>();
         ShuffleArray(pets);
@@ -31,6 +32,7 @@ class PuzzlesManager
             Table[3, i] = fatherNames[i] + " and " + momNames[i];
         }
         LogTable();
+        Target = Table[Random.Range(1, 3), Random.Range(0, houseCount)];
     }
 
     public string GetHint()

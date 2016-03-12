@@ -83,6 +83,8 @@ public class MainController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.K))
 			CreateNewEnemy(EnemyType.Bat);
+        if (Input.GetKeyDown(KeyCode.L))
+            CreateNewEnemy(EnemyType.Pantera);
         if (Input.GetKeyDown(KeyCode.Q))
 			ShowNewHint();
     }
