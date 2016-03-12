@@ -6,11 +6,11 @@ class PuzzlesManager
     public string[,] Table { get; set; }
 
     private int houseCount;
-    private string[] colours = { "white", "blue", "red", "green", "yellow", "pink", "grey", "black" };
-    private string[] pets = { "cat", "dog", "zebra", "lion", "snake" };
-    private string[] drinks = { "water", "beer", "milk", "juice", "coffee" };
-    private string[] fatherNames = { "Dima", "Slavik", "Max", "Bob", "Leo" };
-    private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
+    private string[] colours;
+    private string[] pets = { "cat", "dog", "zebra", "pikachu", "snake", "pig", "elephant"};
+    private string[] drinks = { "water", "beer", "milk", "juice", "coffee", "vodka" };
+    private string[] fatherNames = { "Dima", "Slavik", "Max", "Petro", "Ivan", "Panas" };
+    private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Anna", "Nastya" };
     public string Target { get; set; }
     public string TargetForGui { get; set; }
     public List<string> GeneratedHints { get; set; }
