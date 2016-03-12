@@ -32,6 +32,8 @@ public class MainController : MonoBehaviour
 	public bool gamePause = false;
 
 	float enemyTimer = 0;
+	public int hintsCount = 0;
+
 	void CheckCreateEnemy()
 	{
 		enemyTimer += Time.deltaTime;
@@ -79,7 +81,8 @@ public class MainController : MonoBehaviour
 			CreateNewEnemy(EnemyType.Pantera);
 		if (Input.GetKeyDown(KeyCode.Q))
 			ShowNewHint();
-		CheckHouseTouch();
+		if(hintsCount > 0)
+			CheckHouseTouch();
 		CheckCreateEnemy();
 	}
 
@@ -144,6 +147,7 @@ public class MainController : MonoBehaviour
 	{
 		PopUpManager.Instance.OpenPage(PageType.NewHint);
 		PopUpManager.Instance.ShowNewHint(puzzlesManager.GetHint());
+		hintsCount++;
 	}
 
 

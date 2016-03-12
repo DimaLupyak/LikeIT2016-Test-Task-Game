@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
 		mainController = GameObject.FindObjectOfType<MainController>();
 		speed += Random.Range(0, 200) / 10000f;
         minDistance = 1 + Random.Range(0, 200) / 100f;
-		hitDelta = 1 + Random.Range(0, 200) / 100f;
+		hitDelta = enemyType == EnemyType.Bat ? 1 + Random.Range(0, 200) / 100f : 1f + Random.Range(0, 50) / 100f;
     }
 
     void Update()
