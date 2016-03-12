@@ -15,7 +15,7 @@ public class PopUpManager : MonoBehaviour
 
 	public static PopUpManager Instance;
 
-	public void Start()
+	public void Awake()
 	{
 		hints = new List<string>();
 		Instance = this;
@@ -26,6 +26,7 @@ public class PopUpManager : MonoBehaviour
 		foreach (var page in pages)
 			page.pageObject.SetActive(pagType == page.pageType);
 		shadow.SetActive(true);
+		MainController.Instance.gamePause = true;
 	}
 
 	public void SetTargetText(string targetTxt)
@@ -39,6 +40,7 @@ public class PopUpManager : MonoBehaviour
 			page.pageObject.SetActive(false);
 		shadow.SetActive(false);
 		Time.timeScale = 1;
+		MainController.Instance.gamePause = false;
 	}
 	public void SetGameOverText(string txt)
 	{

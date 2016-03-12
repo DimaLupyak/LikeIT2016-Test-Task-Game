@@ -39,6 +39,8 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+		if (mainController.gamePause)
+			return;
 		if (blockMove)
 		{
 			if (enemyType == EnemyType.Pantera)
@@ -111,11 +113,19 @@ public class EnemyController : MonoBehaviour
 	{
 		//TODO : SLEEP ANIMATION
 		StartCoroutine(Sleep(delay));
+
 	}
 
 	IEnumerator Sleep(float delay)
 	{
 		blockMove = true;
+		if (enemyType == EnemyType.Bat)
+		{
+			HOTween.To(this.transform, 0.4f, new TweenParms().Prop("position", this.transform.position - new Vector3(0, 3, 0)).Ease(EaseType.EaseInBack));
+			yield return new WaitForSeconds(0.4f);
+			yield return StartCoroutine(Die());
+			yield break;
+		}
         animator.SetBool("Sleep", true);
         yield return new WaitForSeconds(delay);
 		blockMove = false;
@@ -137,8 +147,11 @@ public class EnemyController : MonoBehaviour
 	{
 		player.killedEnemyCount ++;
 		mainController.enemies.Remove(this);
-		healthBar.enabled = false;
+		if (healthBar != null)
+			healthBar.enabled = false;
 		blockMove = true;
+		character.transform.Translate(0, -1, 0);
+		animator.enabled = false;
 		character.transform.Rotate(0, 0, 90f * Mathf.Sign(character.transform.localScale.x));
 		yield return new WaitForSeconds(3);
 		while (character.transform.localScale.y > 0.1f)

@@ -37,6 +37,8 @@ public class MainController : MonoBehaviour
 		enemyTimer += Time.deltaTime;
 		if (enemyTimer > 4 && enemies.Count < 8)
 		{
+			if (enemies.Count + 1 % 3 == 0)
+				CreateNewEnemy(EnemyType.Bat);
 			CreateNewEnemy(EnemyType.Pantera);
 			enemyTimer = 0;
 		}
@@ -128,8 +130,8 @@ public class MainController : MonoBehaviour
 	}
 	public void CreateNewEnemy(EnemyType createEnemyType)
 	{
-		var randomPos = new Vector3(player.transform.position.x + Random.Range(20, 35), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
-		randomPos.y = createEnemyType == EnemyType.Pantera ? randomPos.y : Random.Range(-250, 50) / 100f;
+		var randomPos = new Vector3(player.transform.position.x + Random.Range(17, 30), Random.Range(downBound * 100f, upBound * 100f) / 100f, -0.1f); 
+		randomPos.y = createEnemyType == EnemyType.Pantera ? randomPos.y : Random.Range(-250, 0) / 100f;
 		var enemyPrefab = createEnemyType == EnemyType.Bat ? batPrefab : panteraPrefab;
 		GameObject tmpEnemy = Instantiate(enemyPrefab, randomPos, Quaternion.identity) as GameObject;
 		enemies.Add(tmpEnemy.GetComponent<EnemyController>());

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UpgradeController : MonoBehaviour {
 	
@@ -19,7 +20,7 @@ public class UpgradeController : MonoBehaviour {
 	
 		upgradePoints.text = string.Format("Available: {0}",PlayerPrefs.GetInt("points"));
 	}
-		
+
 	public void UpgradeSkill(string skillName)
 	{
 		switch (skillName) {

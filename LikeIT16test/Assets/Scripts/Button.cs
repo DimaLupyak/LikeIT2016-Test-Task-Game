@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 #endif
 
-[ExecuteInEditMode]
 public class Button : MonoBehaviour 
 {
 	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy, PrevHint, NextHint, ClosePopUp, ShowHintList, Next, Restart}
