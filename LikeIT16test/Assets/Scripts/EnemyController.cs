@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
 		{
 			animator.SetBool("Kick", true);
 			player.GetDamage(power);
-			yield return new WaitForSeconds(0.4f);
+			yield return new WaitForSeconds(0.2f);
 			animator.SetBool("Kick", false);
 		}
 		blockMove = false;
