@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour 
 {
+
+	public HouseProp[] houses;
+
 	private PlayerController player;
 	private int direction;
 
@@ -22,6 +25,7 @@ public class MainController : MonoBehaviour
 
     private PuzzlesManager puzzlesManager;
 	public static MainController Instance;
+	public bool gamePause = false;
 	void Awake()
 	{
 		Instance = this;
@@ -37,6 +41,26 @@ public class MainController : MonoBehaviour
 		downBound = downBoundTransform.position.y;
         puzzlesManager = new PuzzlesManager(3);
     }
+
+	void CheckHouseTouch()
+	{
+		for ( int i = 0; i < houses.Length; i++)
+		{
+			if (Mathf.Abs((player.transform.position - houses[i].position.transform.position).x) < 0.5f && Mathf.Abs((player.transform.position - houses[i].position.transform.position).y) < 0.5f)
+			{
+				gamePause = true;
+				if (puzzlesManager.GetIndex(houses[i].color) == puzzlesManager.GetIndex(puzzlesManager.Target))
+				{
+					PopUpManager.Instance.OpenPage(PageType.Win);
+				}
+				else
+				{
+					PopUpManager.Instance.SetGameOverText("WRONG HOUSE!");
+					PopUpManager.Instance.OpenPage(PageType.GameOver);
+				}
+			}
+		}
+	}
 
 	public List<string> GetHints()
 	{
@@ -82,8 +106,16 @@ public class MainController : MonoBehaviour
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.K))
-			CreateNewEnemy(EnemyType.Bat);
+			CreateNewEnemy(EnemyType.Pantera);
         if (Input.GetKeyDown(KeyCode.Q))
 			ShowNewHint();
+		CheckHouseTouch();
     }
+}
+
+[System.Serializable]
+public class HouseProp
+{
+	public string color;
+	public Transform position;
 }

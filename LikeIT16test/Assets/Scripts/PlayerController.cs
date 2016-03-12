@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour
 	}
     void Update()
     {
+		if (mainController.gamePause)
+			return;
 		SkillFill();
 		SkillDown();
 		UpdateSkillBars();
