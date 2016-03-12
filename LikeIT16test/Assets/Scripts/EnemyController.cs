@@ -116,8 +116,12 @@ public class EnemyController : MonoBehaviour
 
 	}
 
+
+	public bool isSleepping = false;
+
 	IEnumerator Sleep(float delay)
 	{
+		isSleepping = true;
 		blockMove = true;
 		if (enemyType == EnemyType.Bat)
 		{
@@ -130,6 +134,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(delay);
 		blockMove = false;
         animator.SetBool("Sleep", false);
+		isSleepping = false;
     }
 
 	IEnumerator ShowDamage()

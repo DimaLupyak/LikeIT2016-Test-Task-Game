@@ -80,10 +80,17 @@ public class PlayerController : MonoBehaviour
 				UseSkill(currentUsingSkill);
 		}
 	}
+	void FixedUpdate()
+	{
+		if (currentUsingSkill == SkillType.Guitar)
+			GuitarDamage();
+	}
     void Update()
     {
 		if (mainController.gamePause)
 			return;
+
+
 		SkillFill();
 		SkillDown();
 		UpdateSkillBars();
@@ -144,8 +151,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case SkillType.Guitar:
                 animator.SetBool("GuitarPlaying", !animator.GetBool("GuitarPlaying"));
-                foreach (var en in mainController.enemies)
-                    en.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
                 break;
 		case SkillType.Hammer:
 			if (currentUsingSkill == SkillType.Hammer)
@@ -165,6 +170,15 @@ public class PlayerController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(delay);
 		currentUsingSkill = SkillType.None;
+	}
+
+	void GuitarDamage()
+	{
+		foreach (var en in mainController.enemies)
+		{
+			if (Mathf.Abs(en.transform.position.x - this.transform.position.x) < 5 && !en.isSleepping)
+				en.GetGuitarDamage(GetSkill(SkillType.Guitar).power);
+		}
 	}
 
 
