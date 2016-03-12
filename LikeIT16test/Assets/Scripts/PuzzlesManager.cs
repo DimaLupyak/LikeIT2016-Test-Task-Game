@@ -39,13 +39,13 @@ class PuzzlesManager
         switch (row)
         {
             case 1:
-                TargetForGui = "Deliver the baby in house with "+ Table[row, column] + ".";
+                TargetForGui = "Deliver the baby \n in house with " + Table[row, column] + ".";
                     break;
             case 2:
-                TargetForGui = "Deliver the baby to family, that drink " + Table[row, column] + ".";
+                TargetForGui = "Deliver the baby \n to family, that drink \n " + Table[row, column] + ".";
                 break;
             case 3:
-                TargetForGui = Table[row, column] + " are the parents of baby.";
+                TargetForGui = Table[row, column] + " \n are the parents of baby.";
                 break;
         }
     }
@@ -54,7 +54,7 @@ class PuzzlesManager
     {
         if (GeneratedHints.Count == 6 * houseCount)
         {
-            return ("You already have the all hints");
+            return ("You already have \n the all hints!");
         }
         string newHint;
 
@@ -76,17 +76,17 @@ class PuzzlesManager
         switch (hintType)
         {
             case 0:
-                return Table[3, houseNumber] + " drink " + Table[2, houseNumber]+".";
+                return Table[3, houseNumber] + " drink \n" + Table[2, houseNumber]+".";
             case 1:
-                return Table[3, houseNumber] + " live in the " + Table[0, houseNumber] + " house.";
+                return Table[3, houseNumber] + " live \n in the " + Table[0, houseNumber] + " house.";
             case 2:
-                return Table[3, houseNumber] + " own the " + Table[1, houseNumber] + ".";
+                return Table[3, houseNumber] + " own \n the " + Table[1, houseNumber] + ".";
             case 3:
-                return "The " + Table[2, houseNumber] + "-drinkers own the " + Table[1, houseNumber] + ".";
+                return "The " + Table[2, houseNumber] + "-drinkers \n own the " + Table[1, houseNumber] + ".";
             case 4:
-                return "The " + Table[2, houseNumber] + "-drinkers live in the " + Table[0, houseNumber] + " house.";
+                return "The " + Table[2, houseNumber] + "-drinkers \n live in the " + Table[0, houseNumber] + " house.";
             case 5:
-                return "The couple, that own the " + Table[1, houseNumber] + " live in the " + Table[0, houseNumber] + " house.";
+                return "The couple, \n that own the " + Table[1, houseNumber] + " \n live in the " + Table[0, houseNumber] + " house.";
         }
         return "";
     }
