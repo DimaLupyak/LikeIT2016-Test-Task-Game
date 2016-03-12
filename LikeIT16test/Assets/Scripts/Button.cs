@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class Button : MonoBehaviour 
 {
-	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy, PrevHint, NextHint, ClosePopUp, ShowHintList, Next, Restart}
+	public enum ButtonAction {GoToScene, GoToLevel, UseSkill, CreateEnemy, PrevHint, NextHint, ClosePopUp, ShowHintList, Next, Restart, Target}
 	public ButtonAction buttonAction;
 	public bool changeSprite;
 
@@ -81,6 +81,9 @@ public class Button : MonoBehaviour
 			break;
 		case ButtonAction.Restart:
 			SceneManager.LoadScene(Application.loadedLevel);
+			break;
+		case ButtonAction.Target:
+			PopUpManager.Instance.OpenPage(PageType.Target);
 			break;
 		default:
 			Debug.LogWarning(buttonAction.ToString());
