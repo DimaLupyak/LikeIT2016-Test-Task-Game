@@ -116,9 +116,11 @@ public class EnemyController : MonoBehaviour
 	IEnumerator Sleep(float delay)
 	{
 		blockMove = true;
-		yield return new WaitForSeconds(delay);
+        animator.SetBool("Sleep", true);
+        yield return new WaitForSeconds(delay);
 		blockMove = false;
-	}
+        animator.SetBool("Sleep", false);
+    }
 
 	IEnumerator ShowDamage()
 	{
