@@ -39,13 +39,13 @@ class PuzzlesManager
         switch (row)
         {
             case 1:
-                TargetForGui = "Deliver the baby in house with."+ Table[row, column];
+                TargetForGui = "Deliver the baby in house with "+ Table[row, column] + ".";
                     break;
             case 2:
-                TargetForGui = "Deliver the baby to family, that drink." + Table[row, column];
+                TargetForGui = "Deliver the baby to family, that drink " + Table[row, column] + ".";
                 break;
             case 3:
-                TargetForGui = Table[row, column] + "are the parents of baby.";
+                TargetForGui = Table[row, column] + " are the parents of baby.";
                 break;
         }
     }
