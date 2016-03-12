@@ -20,7 +20,6 @@ public class UpgradeController : MonoBehaviour {
 	
 		upgradePoints.text = string.Format("Available: {0}",PlayerPrefs.GetInt("points"));
 	}
-
 	public void UpgradeSkill(string skillName)
 	{
 		switch (skillName) {
@@ -51,5 +50,9 @@ public class UpgradeController : MonoBehaviour {
 		default:
 			break;
 		}
+	}
+	public void BackToLevels()
+	{
+		SceneManager.LoadScene(1);
 	}
 }

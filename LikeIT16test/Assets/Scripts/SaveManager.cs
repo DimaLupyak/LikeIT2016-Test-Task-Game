@@ -76,10 +76,7 @@ public class SaveManager : MonoBehaviour
 	}
 
 	#endregion
-	public void BackToLevels()
-	{
-		SceneManager.LoadScene(1);
-	}
+
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex > 0)
