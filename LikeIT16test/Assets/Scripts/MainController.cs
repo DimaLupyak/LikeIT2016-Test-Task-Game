@@ -71,6 +71,8 @@ public class MainController : MonoBehaviour
 
 	void Update()
 	{
+		if (gamePause)
+			return;
 		if (Input.GetKeyDown(KeyCode.K))
 			CreateNewEnemy(EnemyType.Bat);
 		if (Input.GetKeyDown(KeyCode.L))
@@ -92,6 +94,7 @@ public class MainController : MonoBehaviour
 				{
 					PopUpManager.Instance.OpenPage(PageType.Win);
 					SaveManager.Instance.SaveLevelStars(Timer.Instance.currentStars);
+					SaveManager.Instance.AddPoints(Timer.Instance.currentStars);
 				}
 				else
 				{

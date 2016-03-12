@@ -8,6 +8,7 @@ public class SaveManager : MonoBehaviour
 	const string LEVEL_SCORE = "ScoreLevel{0}";
 	const string LEVEL_STARS = "StarsLevel{0}";
 	const string SKILL_LEVEL = "Skill{0}level";
+	const string SKILL_POINTS = "Points";
 
 	public bool clearPrefs;
 
@@ -25,6 +26,15 @@ public class SaveManager : MonoBehaviour
 			PlayerPrefs.DeleteAll();
 	}
 
+	public int GetPointCount()
+	{
+		return PlayerPrefs.GetInt(SKILL_POINTS);
+	}
+	public void AddPoints(int addCount)
+	{
+		Debug.LogWarning(GetPointCount() + " + " + addCount);
+		PlayerPrefs.SetInt(SKILL_POINTS, GetPointCount() + addCount);
+	}
 	#region LEVELS
 
 	public void SaveLevelScore(int score)
