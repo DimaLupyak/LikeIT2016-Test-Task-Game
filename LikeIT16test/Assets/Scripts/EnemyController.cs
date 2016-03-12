@@ -150,7 +150,8 @@ public class EnemyController : MonoBehaviour
 
 	IEnumerator Die()
 	{
-		player.killedEnemyCount ++;
+        animator.SetBool("Dead", true);
+        player.killedEnemyCount++;
 		mainController.enemies.Remove(this);
 		if (healthBar != null)
 			healthBar.enabled = false;
