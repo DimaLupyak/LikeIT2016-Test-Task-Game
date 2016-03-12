@@ -7,9 +7,14 @@ public class PopUpManager : MonoBehaviour
 	public PageProp[] pages;
 	public GameObject shadow;
 
-	public TextMesh hintsTitleText, currentHintText, newHintText, gameOverText, targetText;
+	public TextMesh hintsTitleText, currentHintText, newHintText, gameOverText, targetText, howToText;
 	public Button buttonPrev, buttonNext;
+	private string[] howTo = {"Гєна - аіст, якому потрібно\nдоставляти дітей в певні будинки.\nАле він не знає в який саме:( , і тому\nйому треба збирати підказки, \nбуквально витягуючи їх з \nнедоброзичливих перехожих.", 
+		"Гєна має 3 скіли: шторка, молоток \nі гітара. За шторкою Гєну ніхто не \nпобачить, молоток служить для \nзахисту від хижих персонажів.\nА грою на гітарі можна погрузити\nїх в невеличний сон."};
 
+
+
+	private	int currentHowTo = 0;
 	private int currentHintNum = 0;
 	private List<string> hints;
 
@@ -28,7 +33,13 @@ public class PopUpManager : MonoBehaviour
 		shadow.SetActive(true);
 		MainController.Instance.gamePause = true;
 	}
-
+	public void NextHowTo()
+	{
+		currentHowTo++;
+		if (currentHowTo < howTo.Length)
+			howToText.text = howTo[currentHowTo];
+		else OpenPage(PageType.Target);
+	}
 	public void SetTargetText(string targetTxt)
 	{
 		targetText.text = targetTxt;
@@ -80,7 +91,7 @@ public class PopUpManager : MonoBehaviour
 	}
 }
 
-public enum PageType {NewHint, HintList, Menu, Win, GameOver, Target}
+public enum PageType {NewHint, HintList, Menu, Win, GameOver, Target, HowToPlay}
 [System.Serializable]
 public class PageProp
 {

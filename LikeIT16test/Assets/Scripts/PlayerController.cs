@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
 	public float[] skillsEnergy = {100, 100, 100};
 	float skillBarScale;
 
-
 	void CheckHintShow()
 	{
 		if (killedEnemyCount >= 3)

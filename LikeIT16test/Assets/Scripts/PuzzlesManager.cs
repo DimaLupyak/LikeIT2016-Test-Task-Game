@@ -15,6 +15,7 @@ class PuzzlesManager
     public string TargetForGui { get; set; }
     public List<string> GeneratedHints { get; set; }
 
+
     public PuzzlesManager(int houseCount) 
     {
         this.houseCount = houseCount;
@@ -50,8 +51,14 @@ class PuzzlesManager
                 TargetForGui = Table[row, column] + " \n are the parents of baby.";
                 break;
         }
+
 		PopUpManager.Instance.SetTargetText(TargetForGui);
 		PopUpManager.Instance.OpenPage(PageType.Target);
+		if (!PlayerPrefs.HasKey("FIRST"))
+		{
+			PopUpManager.Instance.OpenPage(PageType.HowToPlay);
+			PlayerPrefs.SetInt("FIRST", 0);
+		}
     }
 
     public string GetHint()
