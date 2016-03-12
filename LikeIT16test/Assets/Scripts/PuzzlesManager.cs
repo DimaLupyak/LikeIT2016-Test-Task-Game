@@ -9,7 +9,7 @@ class PuzzlesManager
     private string[] colours = { "white", "blue", "red", "green", "yellow", "pink", "grey", "black" };
     private string[] pets = { "cat", "dog", "zebra", "lion", "snake" };
     private string[] drinks = { "water", "beer", "milk", "juice", "coffee" };
-    private string[] fatherNames = { "Dima", "Slavic", "Max", "Bob", "Leo" };
+    private string[] fatherNames = { "Dima", "Slavik", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
     public string Target { get; set; }
     public List<string> GeneratedHints { get; set; }
