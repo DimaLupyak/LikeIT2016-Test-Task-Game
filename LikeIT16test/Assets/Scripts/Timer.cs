@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour {
 	public Image threeStars;
 	public Image twoStars;
 	public Image oneStar;
-	int currentStars = 3;
+	public int currentStars = 3;
 	public bool runTime;
 
 
@@ -15,8 +15,11 @@ public class Timer : MonoBehaviour {
 	public float twoStarsTime = 30.0f;
 	public float oneStarTime = 30.0f;
 
+	public static Timer Instance;
+
 	void Start()
 	{
+		Timer.Instance = this;
 		_base = MainController.Instance._base;
 		threeStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[2];
 		twoStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[1];

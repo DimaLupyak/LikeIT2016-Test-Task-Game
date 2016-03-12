@@ -15,6 +15,7 @@ public class Levels : MonoBehaviour
 			var go = Instantiate(levelPrefab, new Vector3(0, 2 - i * 2f, 0), Quaternion.identity) as GameObject;
 			if (i > 0 && !SaveManager.Instance.IsLevelOpen(i + 1))
 				go.GetComponent<Button>().Disable();
+			go.GetComponent<Button>().parm = i + 1;
 			go.name = "Level_" + (i + 1);
 			go.transform.GetChild(0).GetComponent<TextMesh>().text = "Level " + (i + 1);
 		}	

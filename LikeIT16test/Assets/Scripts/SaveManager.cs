@@ -9,6 +9,8 @@ public class SaveManager : MonoBehaviour
 	const string LEVEL_STARS = "StarsLevel{0}";
 	const string SKILL_LEVEL = "Skill{0}level";
 
+	public bool clearPrefs;
+
 	public static SaveManager Instance;
 	public void Start()
 	{
@@ -19,6 +21,8 @@ public class SaveManager : MonoBehaviour
 			SaveManager.Instance = this;
 			DontDestroyOnLoad(this.gameObject);
 		}
+		if (clearPrefs)
+			PlayerPrefs.DeleteAll();
 	}
 
 	#region LEVELS

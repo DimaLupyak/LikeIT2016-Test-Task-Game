@@ -56,7 +56,7 @@ public class Button : MonoBehaviour
 			break;
 		case ButtonAction.GoToLevel:
 			SaveManager.Instance.SetCurrentLevel(parm);
-			SceneManager.LoadScene(2);
+			SceneManager.LoadScene(parm + 1);
 			break;
 		case ButtonAction.UseSkill:
 			MainController.Instance.UseSkill(skillType);

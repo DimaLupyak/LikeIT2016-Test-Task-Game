@@ -61,6 +61,7 @@ public class MainController : MonoBehaviour
 				if (puzzlesManager.GetIndex(houses[i].color) == puzzlesManager.GetIndex(puzzlesManager.Target))
 				{
 					PopUpManager.Instance.OpenPage(PageType.Win);
+					SaveManager.Instance.SaveLevelStars(Timer.Instance.currentStars);
 				}
 				else
 				{
