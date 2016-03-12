@@ -7,7 +7,7 @@ public class PopUpManager : MonoBehaviour
 	public PageProp[] pages;
 	public GameObject shadow;
 
-	public TextMesh hintsTitleText, currentHintText, newHintText;
+	public TextMesh hintsTitleText, currentHintText, newHintText, gameOverText;
 	public Button buttonPrev, buttonNext;
 
 	private int currentHintNum = 0;
@@ -33,6 +33,11 @@ public class PopUpManager : MonoBehaviour
 			page.pageObject.SetActive(false);
 		shadow.SetActive(false);
 		Time.timeScale = 1;
+	}
+	public void SetGameOverText(string txt)
+	{
+		if (gameOverText != null)
+			gameOverText.text = txt;
 	}
 
 	public void ShowNewHint(string hintText)

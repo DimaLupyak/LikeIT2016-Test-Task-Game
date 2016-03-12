@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
 	private Animator hummerAnimator;
 	private Animator showerAnimator;
 
+	public Transform leftBorder;
+	public Transform rightBorder;
+
     private Joystick joystick;
     private EnemyController[] enemies;
     private MainController mainController;
@@ -66,11 +69,14 @@ public class PlayerController : MonoBehaviour
 	}
     void Update()
     {
+		if (mainController.gamePause)
+			return;
 		SkillFill();
 		SkillDown();
 		UpdateSkillBars();
 		if (isDie)
 			return;
+		
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -82,12 +88,18 @@ public class PlayerController : MonoBehaviour
 
         if (!(transform.position.y + moveVertical * speed < mainController.upBound && transform.position.y + moveVertical * speed > mainController.downBound))
             moveVertical = 0;
-        transform.Translate(moveHorizontal * speed, moveVertical * speed, 0);
+
+		if (!(transform.position.x + moveHorizontal * speed < mainController.rightBound && transform.position.x + moveHorizontal * speed > mainController.leftBound))
+			moveHorizontal = 0;
+		
+			transform.Translate (moveHorizontal * speed, moveVertical * speed, 0);
+
         animator.SetFloat("hSpeed", moveHorizontal + moveVertical == 0 ? 0 : 1);
         Vector3 theScale = transform.localScale;
         theScale.x = moveHorizontal > 0 ? Mathf.Abs(this.transform.localScale.x) * -1 : moveHorizontal < 0 ? Mathf.Abs(this.transform.localScale.x) * 1 : theScale.x;
         transform.localScale = theScale;
-        if (Input.GetButtonDown("Jump"))
+       
+		if (Input.GetButtonDown("Jump"))
             UseSkill(SkillType.Guitar);
         if (Input.GetKeyDown(KeyCode.H))
             UseSkill(SkillType.Hammer);

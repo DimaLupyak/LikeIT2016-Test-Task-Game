@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
 
+	private Base _base;
 	public Image threeStars;
 	public Image twoStars;
 	public Image oneStar;
@@ -14,7 +15,15 @@ public class Timer : MonoBehaviour {
 	public float twoStarsTime = 30.0f;
 	public float oneStarTime = 30.0f;
 
-	// Update is called once per frame
+	void Start()
+	{
+		_base = MainController.Instance._base;
+		threeStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[2];
+		twoStarsTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[1];
+		oneStarTime = _base.levels[SaveManager.Instance.GetCurrentLevel()].winTimes[0];
+		runTime = true;
+	}
+
 	void Update () 
 	{
 		if (runTime) {
@@ -28,7 +37,8 @@ public class Timer : MonoBehaviour {
 					currentStars = 1;
 					if (oneStar.fillAmount > 0) {
 						oneStar.fillAmount -= 1f / oneStarTime * Time.deltaTime;
-					}//else GAMEOVER();
+					}
+					else PopUpManager.Instance.OpenPage(PageType.GameOver);
 				}
 			}
 		}
