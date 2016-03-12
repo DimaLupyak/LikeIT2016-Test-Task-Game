@@ -9,19 +9,14 @@ class PuzzlesManager
     private string[] colours = { "white", "blue", "red", "green", "yellow", "pink", "grey", "black" };
     private string[] pets = { "cat", "dog", "zebra", "lion", "snake" };
     private string[] drinks = { "water", "beer", "milk", "juice", "coffee" };
-    private string[] fatherNames = { "Dima", "Slavik", "Max", "Bob", "Leo" };
+    private string[] fatherNames = { "Dima", "Slavic", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
-
+    public string Target { get; set; }
     public List<string> GeneratedHints { get; set; }
 
-	public string Target {get; set;}
     public PuzzlesManager(int houseCount)
     {
-		colours = new string[MainController.Instance.houses.Length];
-		for (int i = 0; i < MainController.Instance.houses.Length; i++)
-		{
-			colours[i] =  MainController.Instance.houses[i].color;
-		}
+
         this.houseCount = houseCount;
         GeneratedHints = new List<string>();
         ShuffleArray(pets);
@@ -37,21 +32,8 @@ class PuzzlesManager
             Table[3, i] = fatherNames[i] + " and " + momNames[i];
         }
         LogTable();
-		Target = Table[Random.Range(1, 3), Random.Range(0, houseCount)];
-	}
-
-	public int GetIndex(string str)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < houseCount; j++)
-			{
-				if (Table[i, j] == str) return j;
-			}
-		}
-		return -1;
-	}
-
+        Target = Table[Random.Range(1, 3), Random.Range(0, houseCount)];
+    }
 
     public string GetHint()
     {
@@ -94,6 +76,18 @@ class PuzzlesManager
         return "";
     }
 
+    public int GetIndex(string str)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < houseCount; j++)
+            {
+                if (Table[i, j] == str) return j;
+            }
+        }
+        return -1;
+    }
+
     private void LogTable()
     {
         for (int i = 0; i < houseCount; i++)
@@ -112,4 +106,6 @@ class PuzzlesManager
             array[randomIndex] = temp;
         }
     }
+
+    
 }
