@@ -12,8 +12,6 @@ public class UpgradeController : MonoBehaviour {
 	public Text guitarText;
 	// Use this for initialization
 	void Start (){
-		 
-		PlayerPrefs.SetInt ("points", 22);
 		if (!PlayerPrefs.HasKey ("points")) {
 			PlayerPrefs.SetInt ("points", 0);
 		}
