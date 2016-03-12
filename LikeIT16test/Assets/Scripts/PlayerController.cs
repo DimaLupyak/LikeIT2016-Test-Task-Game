@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 	void UpdateSkillBars()
 	{
 		for (int i = 0; i < 3 ; i++)
-			skillBars[i].localScale = new Vector3(skillBarScale * (skillsEnergy[i] / 100f), 1, 0);
+			skillBars[i].localScale = new Vector3(skillBarScale * (skillsEnergy[i] / 100f), 0.4f, 0);
 	}
 	void SkillFill()
 	{
