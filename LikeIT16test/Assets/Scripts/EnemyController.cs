@@ -81,11 +81,26 @@ public class EnemyController : MonoBehaviour
 		yield return new WaitForSeconds(0.4f);
 		blockMove = false;
 	}
+
+	IEnumerator PanteraHit()
+	{
+		blockMove = true;
+		if (!player.isDie)
+		{
+			animator.SetBool("Kick", true);
+			player.GetDamage(power);
+			yield return new WaitForSeconds(0.4f);
+			animator.SetBool("Kick", false);
+		}
+		blockMove = false;
+	}
 	private void Hit()
 	{
 		hitTimer = 0;
 		if (enemyType == EnemyType.Bat)
 			StartCoroutine(BatHit());
+		if (enemyType == EnemyType.Pantera)
+			StartCoroutine(PanteraHit());
 	}
 
     private void FlipCheck()

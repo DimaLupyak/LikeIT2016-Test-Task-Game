@@ -89,7 +89,7 @@ public class SaveManager : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex > 0)
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+		//if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex > 0)
+		//		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
 	}
 }
