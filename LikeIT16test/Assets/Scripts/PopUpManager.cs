@@ -7,7 +7,7 @@ public class PopUpManager : MonoBehaviour
 	public PageProp[] pages;
 	public GameObject shadow;
 
-	public TextMesh hintsTitleText, currentHintText, newHintText, gameOverText;
+	public TextMesh hintsTitleText, currentHintText, newHintText, gameOverText, targetText;
 	public Button buttonPrev, buttonNext;
 
 	private int currentHintNum = 0;
@@ -27,6 +27,12 @@ public class PopUpManager : MonoBehaviour
 			page.pageObject.SetActive(pagType == page.pageType);
 		shadow.SetActive(true);
 	}
+
+	public void SetTargetText(string targetTxt)
+	{
+		targetText.text = targetTxt;
+	}
+
 	public void CloseWindow()
 	{
 		foreach (var page in pages)
@@ -72,7 +78,7 @@ public class PopUpManager : MonoBehaviour
 	}
 }
 
-public enum PageType {NewHint, HintList, Menu, Win, GameOver}
+public enum PageType {NewHint, HintList, Menu, Win, GameOver, Target}
 [System.Serializable]
 public class PageProp
 {

@@ -44,7 +44,7 @@ public class SaveManager : MonoBehaviour
 
 	public int GetLevelStars(int level)
 	{
-		return PlayerPrefs.GetInt(string.Format(LEVEL_STARS, GetCurrentLevel()));
+		return PlayerPrefs.GetInt(string.Format(LEVEL_STARS, level));
 	}
 
 	public void SetCurrentLevel(int currentLevel)

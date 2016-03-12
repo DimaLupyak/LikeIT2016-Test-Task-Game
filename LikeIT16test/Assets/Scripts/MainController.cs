@@ -49,6 +49,9 @@ public class MainController : MonoBehaviour
 		rightBound = rightBoundTransform.position.x;
 
         puzzlesManager = new PuzzlesManager(3);
+
+		PopUpManager.Instance.SetTargetText(puzzlesManager.TargetForGui);
+		PopUpManager.Instance.OpenPage(PageType.Target);
     }
 
 	void CheckHouseTouch()
