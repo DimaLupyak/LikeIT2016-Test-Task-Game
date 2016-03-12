@@ -112,6 +112,8 @@ public class EnemyController : MonoBehaviour
 
 	public void GetHammerDamage(int damage)
 	{
+		if (enemyType == EnemyType.Bat)
+			return;
 		health -= damage;
 		StartCoroutine(ShowDamage());
 		UpdateHealthBar();
