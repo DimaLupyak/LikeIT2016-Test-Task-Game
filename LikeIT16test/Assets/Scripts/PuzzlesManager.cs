@@ -12,6 +12,7 @@ class PuzzlesManager
     private string[] fatherNames = { "Dima", "Slavik", "Max", "Bob", "Leo" };
     private string[] momNames = { "Marina", "Olya", "Natasha", "Sveta", "Marry" };
     public string Target { get; set; }
+    public string TargetForGui { get; set; }
     public List<string> GeneratedHints { get; set; }
 
     public PuzzlesManager(int houseCount)
@@ -32,7 +33,21 @@ class PuzzlesManager
             Table[3, i] = fatherNames[i] + " and " + momNames[i];
         }
         LogTable();
-        Target = Table[Random.Range(1, 3), Random.Range(0, houseCount)];
+        int row = Random.Range(1, 3);
+        int column = Random.Range(0, houseCount);
+        Target = Table[row, column];
+        switch (row)
+        {
+            case 1:
+                TargetForGui = "Deliver the baby in house with."+ Table[row, column];
+                    break;
+            case 2:
+                TargetForGui = "Deliver the baby to family, that drink." + Table[row, column];
+                break;
+            case 3:
+                TargetForGui = Table[row, column] + "are the parents of baby.";
+                break;
+        }
     }
 
     public string GetHint()
@@ -61,17 +76,17 @@ class PuzzlesManager
         switch (hintType)
         {
             case 0:
-                return Table[3, houseNumber] + " drink " + Table[2, houseNumber];
+                return Table[3, houseNumber] + " drink " + Table[2, houseNumber]+".";
             case 1:
-                return Table[3, houseNumber] + " live in the " + Table[0, houseNumber] + " house";
+                return Table[3, houseNumber] + " live in the " + Table[0, houseNumber] + " house.";
             case 2:
-                return Table[3, houseNumber] + " own the " + Table[1, houseNumber];
+                return Table[3, houseNumber] + " own the " + Table[1, houseNumber] + ".";
             case 3:
-                return "The " + Table[2, houseNumber] + "-drinkers own the " + Table[1, houseNumber];
+                return "The " + Table[2, houseNumber] + "-drinkers own the " + Table[1, houseNumber] + ".";
             case 4:
-                return "The " + Table[2, houseNumber] + "-drinkers live in the " + Table[0, houseNumber] + " house";
+                return "The " + Table[2, houseNumber] + "-drinkers live in the " + Table[0, houseNumber] + " house.";
             case 5:
-                return "The couple, that own the " + Table[1, houseNumber] + " live in the " + Table[0, houseNumber] + " house";
+                return "The couple, that own the " + Table[1, houseNumber] + " live in the " + Table[0, houseNumber] + " house.";
         }
         return "";
     }
